@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Yumly</string>
+    <string name="signup_with_email">Signup with email</string>
+    <string name="or_use_social_signup">or use social signup</string>
+    <string name="continue_with_google">Continue With Google</string>
+    <string name="continue_with_facebook">Continue With Facebook</string>
+    <string name="already_have_account">Already have account</string>
+    <string name="log_in"><u>Log In</u></string>
+    <string name="sign_up">Sign Up</string>
+    <string name="signup_message">Save tasty recipes &amp; enjoy personalized meal recommendations! 🍽️✨</string>
+    <string name="login_message">Delicious bites, perfectly planned! 🥗🍕</string>
+    <string name="your_name">Your Name</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="enter_your_e_mail">Enter your E-mail</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="login">Login</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
 </resources>
