@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryColor"
+    android:background="@drawable/gradient_signup"
     tools:context=".ui.auth.SignupWithEmail">
 
     <LinearLayout
@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:padding="30dp"
-        android:background="@color/primaryColor"
+        android:background="@drawable/gradient_signup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,6 +49,7 @@
             android:id="@+id/name_text_field_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:counterTextColor="@color/black"
             app:counterEnabled="true"
             app:counterMaxLength="20"
             app:boxBackgroundColor="@color/white"
@@ -106,12 +107,15 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:elevation="8dp"
+            android:stateListAnimator="@null"
+
             android:id="@+id/signup_with_email_id"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:textSize="20sp"
             android:text="@string/sign_up"
-            app:backgroundTint="@color/helperColor"
+            app:backgroundTint="@color/primaryColor"
             app:cornerRadius="10dp"
             android:textColor="@color/white"/>
 

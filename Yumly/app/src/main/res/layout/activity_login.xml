@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryColor"
+    android:background="@drawable/gradient_login"
     tools:context=".ui.auth.SignupWithEmail">
 
     <LinearLayout
@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:padding="30dp"
-        android:background="@color/primaryColor"
+        android:background="@drawable/gradient_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,6 +86,9 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:elevation="8dp"
+            android:stateListAnimator="@null"
+
             android:id="@+id/signup_with_email_id"
             android:layout_width="match_parent"
             android:layout_height="60dp"
