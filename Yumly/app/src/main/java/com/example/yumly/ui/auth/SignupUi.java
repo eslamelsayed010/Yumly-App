@@ -2,40 +2,31 @@ package com.example.yumly.ui.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.yumly.R;
+import com.example.yumly.databinding.ActivitySignupUiBinding;
 
 public class SignupUi extends AppCompatActivity {
-    Button signupWithEmailBtn;
-    TextView textView;
+
+    ActivitySignupUiBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_signup_ui);
 
-        signupWithEmailBtn = findViewById(R.id.signup_id);
-        textView = findViewById(R.id.text_button_log_in_id);
+        binding = ActivitySignupUiBinding.inflate(getLayoutInflater());
 
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignupUi.this, Login.class);
-                startActivity(intent);
-            }
+        setContentView(binding.getRoot());
+
+        binding.textButtonLogInId.setOnClickListener(v -> {
+            Intent intent = new Intent(SignupUi.this, Login.class);
+            startActivity(intent);
         });
 
-        signupWithEmailBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignupUi.this, SignupWithEmail.class);
-                startActivity(intent);
-            }
+        binding.signupBtnId.setOnClickListener(v -> {
+            Intent intent = new Intent(SignupUi.this, SignupWithEmail.class);
+            startActivity(intent);
         });
     }
 }
