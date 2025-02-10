@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.yumly.databinding.ActivitySignupWithEmailBinding;
 import com.google.firebase.auth.FirebaseAuth;
