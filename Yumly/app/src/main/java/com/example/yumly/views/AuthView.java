@@ -1,5 +1,7 @@
 package com.example.yumly.views;
 
+import com.example.yumly.models.UserModel;
+
 public interface AuthView {
-    void onGetData(String name, String password);
+    void signInWithGoogle(UserModel userModel);
 }

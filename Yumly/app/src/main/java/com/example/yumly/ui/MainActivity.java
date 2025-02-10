@@ -1,15 +1,11 @@
 package com.example.yumly.ui;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.yumly.databinding.ActivityMainBinding;
 import com.example.yumly.databinding.SplashViewBinding;
-import com.example.yumly.presenters.AuthPresenter;
 import com.example.yumly.ui.auth.SignupUi;
 import com.example.yumly.views.AuthView;
 
