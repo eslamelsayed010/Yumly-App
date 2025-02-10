@@ -1,7 +1,7 @@
 [versions]
 agp = "8.8.0"
 butterknifeCompiler = "10.2.3"
-facebookLogin = "latest.release"
+facebookLogin = "+"
 firebaseBom = "33.9.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
