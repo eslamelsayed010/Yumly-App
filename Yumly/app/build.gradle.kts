@@ -43,6 +43,8 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.firebase.auth)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -56,6 +58,9 @@ dependencies {
     implementation(libs.google.firebase.auth)
 
     implementation(libs.facebook.login)
+
+    implementation(libs.navigation.fragment.v253)
+    implementation(libs.navigation.ui.v253)
 
 
 }
