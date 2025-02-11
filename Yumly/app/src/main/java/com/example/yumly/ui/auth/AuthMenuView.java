@@ -15,9 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.example.yumly.R;
-import com.example.yumly.databinding.ActivitySignupUiBinding;
+import com.example.yumly.databinding.FragmentAuthMenuBinding;
 import com.example.yumly.models.UserModel;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -37,7 +36,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class AuthMenuView extends Fragment {
 
-    ActivitySignupUiBinding binding;
+    FragmentAuthMenuBinding binding;
 
     private static final String TAG = "SignupUi";
     private static final int REQ_ONE_TAP = 2;
@@ -60,7 +59,7 @@ public class AuthMenuView extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = ActivitySignupUiBinding.inflate(inflater, container, false);
+        binding = FragmentAuthMenuBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

@@ -9,13 +9,12 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.yumly.R;
-import com.example.yumly.databinding.SplashViewBinding;
+import com.example.yumly.databinding.FragmentSplashViewBinding;
 
 public class SplashView extends Fragment {
 
-    SplashViewBinding binding;
+    FragmentSplashViewBinding binding;
 
     public SplashView() {}
 
@@ -28,7 +27,7 @@ public class SplashView extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = SplashViewBinding.inflate(inflater, container, false);
+        binding = FragmentSplashViewBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

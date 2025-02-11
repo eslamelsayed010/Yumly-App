@@ -5,22 +5,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import com.example.yumly.R;
-import com.example.yumly.databinding.ActivitySignupWithEmailBinding;
+import com.example.yumly.databinding.FragmentSignupViewBinding;
 import com.example.yumly.models.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SignupView extends Fragment {
 
-    private ActivitySignupWithEmailBinding binding;
+    FragmentSignupViewBinding binding;
     private FirebaseAuth mAuth;
 
     UserModel user;
@@ -36,7 +33,7 @@ public class SignupView extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = ActivitySignupWithEmailBinding.inflate(inflater, container, false);
+        binding = FragmentSignupViewBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

@@ -10,16 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import com.example.yumly.R;
-import com.example.yumly.databinding.ActivityLoginBinding;
+import com.example.yumly.databinding.FragmentLoginViewBinding;
 import com.example.yumly.models.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginView extends Fragment {
 
-    ActivityLoginBinding binding;
+    FragmentLoginViewBinding binding;
     private FirebaseAuth mAuth;
 
     UserModel user;
@@ -33,7 +31,7 @@ public class LoginView extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = ActivityLoginBinding.inflate(inflater, container, false);
+        binding = FragmentLoginViewBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
