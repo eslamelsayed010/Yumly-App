@@ -66,10 +66,6 @@ public class SignupView extends Fragment {
                         FirebaseUser user = mAuth.getCurrentUser();
                         Toast.makeText(requireContext(), "Signup successful!", Toast.LENGTH_SHORT).show();
                         Navigation.findNavController(view).navigate(R.id.action_signupView_to_homeView);
-                        // Optionally, send email verification
-                        if (user != null) {
-                            user.sendEmailVerification();
-                        }
                     } else {
                         // If sign up fails, display a message to the user
                         Toast.makeText(requireContext(), "Signup failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
