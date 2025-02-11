@@ -1,4 +1,4 @@
-package com.example.yumly;
+package com.example.yumly.ui.auth;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -11,7 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.example.yumly.R;
 import com.example.yumly.databinding.ActivitySignupWithEmailBinding;
+import com.example.yumly.models.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -19,6 +22,8 @@ public class SignupView extends Fragment {
 
     private ActivitySignupWithEmailBinding binding;
     private FirebaseAuth mAuth;
+
+    UserModel user;
 
     public SignupView() {}
 
@@ -65,7 +70,9 @@ public class SignupView extends Fragment {
                         // Sign up success
                         FirebaseUser user = mAuth.getCurrentUser();
                         Toast.makeText(requireContext(), "Signup successful!", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(view).navigate(R.id.action_signupView_to_homeView);
+                        this.user = new UserModel(name, user.getEmail(),user.getUid());
+                        SignupViewDirections.ActionSignupViewToHomeView action = SignupViewDirections.actionSignupViewToHomeView(this.user);
+                        Navigation.findNavController(view).navigate(action);
                     } else {
                         // If sign up fails, display a message to the user
                         Toast.makeText(requireContext(), "Signup failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

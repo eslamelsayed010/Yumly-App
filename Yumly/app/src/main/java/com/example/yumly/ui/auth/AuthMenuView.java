@@ -1,4 +1,4 @@
-package com.example.yumly;
+package com.example.yumly.ui.auth;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,7 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.example.yumly.R;
 import com.example.yumly.databinding.ActivitySignupUiBinding;
+import com.example.yumly.models.UserModel;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -43,6 +46,8 @@ public class AuthMenuView extends Fragment {
     private BeginSignInRequest signInRequest;
     private CallbackManager mCallbackManager;
     View view;
+
+    UserModel user;
 
     public AuthMenuView() {}
 
@@ -168,7 +173,10 @@ public class AuthMenuView extends Fragment {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         Toast.makeText(requireContext(), "Welcome, " + user.getDisplayName(), Toast.LENGTH_LONG).show();
-                        Navigation.findNavController(view).navigate(R.id.action_authMenu_to_homeView);
+                        this.user = new UserModel(user.getDisplayName(), user.getEmail(),user.getUid());
+                        AuthMenuViewDirections.ActionAuthMenuToHomeView action = AuthMenuViewDirections.actionAuthMenuToHomeView(this.user);
+                        Navigation.findNavController(view).navigate(action);
+                        //Navigation.findNavController(view).navigate(R.id.action_authMenu_to_homeView);
                     } else {
                         Log.w(TAG, "Google authentication failed", task.getException());
                     }

@@ -1,4 +1,4 @@
-package com.example.yumly;
+package com.example.yumly.ui.splash;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -9,6 +9,8 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.yumly.R;
 import com.example.yumly.databinding.SplashViewBinding;
 
 public class SplashView extends Fragment {

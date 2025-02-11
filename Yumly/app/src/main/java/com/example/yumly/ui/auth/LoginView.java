@@ -1,4 +1,4 @@
-package com.example.yumly;
+package com.example.yumly.ui.auth;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -10,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.example.yumly.R;
 import com.example.yumly.databinding.ActivityLoginBinding;
+import com.example.yumly.models.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -18,6 +21,8 @@ public class LoginView extends Fragment {
 
     ActivityLoginBinding binding;
     private FirebaseAuth mAuth;
+
+    UserModel user;
 
     public LoginView() {}
 
@@ -55,7 +60,10 @@ public class LoginView extends Fragment {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         Toast.makeText(requireContext(), "Login successful!", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(view).navigate(R.id.action_loginView_to_homeView);
+                        String name = email.split("@")[0];
+                        this.user = new UserModel(name, user.getEmail(),user.getUid());
+                        LoginViewDirections.ActionLoginViewToHomeView action = LoginViewDirections.actionLoginViewToHomeView(this.user);
+                        Navigation.findNavController(view).navigate(action);
                     } else {
                         Toast.makeText(requireContext(), "Login failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }

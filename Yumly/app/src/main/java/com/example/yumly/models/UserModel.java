@@ -1,6 +1,11 @@
 package com.example.yumly.models;
 
-public class UserModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class UserModel implements Parcelable {
     private String name;
     private String email;
     private String uId;
@@ -10,6 +15,24 @@ public class UserModel {
         this.email = email;
         this.uId = uId;
     }
+
+    protected UserModel(Parcel in) {
+        name = in.readString();
+        email = in.readString();
+        uId = in.readString();
+    }
+
+    public static final Creator<UserModel> CREATOR = new Creator<UserModel>() {
+        @Override
+        public UserModel createFromParcel(Parcel in) {
+            return new UserModel(in);
+        }
+
+        @Override
+        public UserModel[] newArray(int size) {
+            return new UserModel[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -27,11 +50,23 @@ public class UserModel {
         this.email = email;
     }
 
-    public String getuId() {
+    public String getUId() {
         return uId;
     }
 
-    public void setuId(String uId) {
+    public void setUId(String uId) {
         this.uId = uId;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(email);
+        dest.writeString(uId);
     }
 }
