@@ -1,7 +1,6 @@
-package com.example.yumly.ui.auth;
+package com.example.yumly.features.auth.views;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
@@ -16,20 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.yumly.R;
+import com.example.yumly.data.models.UserModel;
 import com.example.yumly.databinding.FragmentAuthMenuBinding;
-import com.example.yumly.models.UserModel;
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.identity.SignInCredential;
 import com.google.android.gms.common.api.ApiException;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -43,13 +36,22 @@ public class AuthMenuView extends Fragment {
     private FirebaseAuth mAuth;
     private SignInClient oneTapClient;
     private BeginSignInRequest signInRequest;
-    private CallbackManager mCallbackManager;
     View view;
 
     UserModel user;
 
     public AuthMenuView() {}
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null){
+            this.user = new UserModel(currentUser.getDisplayName(), currentUser.getEmail(),currentUser.getUid());
+            AuthMenuViewDirections.ActionAuthMenuToHomeView action = AuthMenuViewDirections.actionAuthMenuToHomeView(this.user);
+            Navigation.findNavController(view).navigate(action);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,39 +69,15 @@ public class AuthMenuView extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.view = view;
-        initializeAuth();
-        setupFacebookLogin();
+        mAuth = FirebaseAuth.getInstance();
         setupGoogleSignIn();
         setupUIActions();
     }
 
-    private void initializeAuth() {
-        mAuth = FirebaseAuth.getInstance();
-        mCallbackManager = CallbackManager.Factory.create();
-    }
-
-    private final ActivityResultLauncher<Intent> facebookLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> mCallbackManager.onActivityResult(result.getResultCode(), result.getResultCode(), result.getData()));
-
-    private void setupFacebookLogin() {
-        binding.loginButtonWithFacebookId.setReadPermissions("email", "public_profile");
-        binding.loginButtonWithFacebookId.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "Facebook login cancelled");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.e(TAG, "Facebook login error", error);
-            }
-        });
+    private void setupUIActions() {
+        binding.textButtonLogInId.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_authMenu_to_loginView));
+        binding.signupBtnId.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_authMenu_to_signupView));
+        binding.signupGoogleId.setOnClickListener(v -> signInWithGoogle());
     }
 
     private void setupGoogleSignIn() {
@@ -111,12 +89,6 @@ public class AuthMenuView extends Fragment {
                         .setFilterByAuthorizedAccounts(true)
                         .build())
                 .build();
-    }
-
-    private void setupUIActions() {
-        binding.textButtonLogInId.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_authMenu_to_loginView));
-        binding.signupBtnId.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_authMenu_to_signupView));
-        binding.signupGoogleId.setOnClickListener(v -> signInWithGoogle());
     }
 
     private void signInWithGoogle() {
@@ -158,13 +130,6 @@ public class AuthMenuView extends Fragment {
                 }
             });
 
-
-    private final ActivityResultLauncher<Intent> facebookSignInLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> mCallbackManager.onActivityResult(result.getResultCode(), result.getResultCode(), result.getData()));
-
-
-
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
@@ -182,17 +147,4 @@ public class AuthMenuView extends Fragment {
                 });
     }
 
-    private void handleFacebookAccessToken(AccessToken token) {
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(requireActivity(), task -> {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        Toast.makeText(requireContext(), "Welcome, " + user.getDisplayName(), Toast.LENGTH_LONG).show();
-                    } else {
-                        Log.w(TAG, "Facebook authentication failed", task.getException());
-                        Toast.makeText(requireContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
 }

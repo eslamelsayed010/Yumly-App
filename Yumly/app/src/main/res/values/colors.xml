@@ -5,5 +5,9 @@
     <color name="primaryColor">#3BAD53</color>
     <color name="primaryColor2">#66FC86</color>
     <color name="helperColor">#6D14FF</color>
-    <color name="gray">#cdd0cd</color>
+    <color name="gray_light">#cdd0cd</color>
+    <color name="gray_lighter">#B2BEB5</color>
+    <color name="red">#cc0000</color>
+    <color name="search_color">#f2faf0</color>
+    <color name="gray">#808080</color>
 </resources>

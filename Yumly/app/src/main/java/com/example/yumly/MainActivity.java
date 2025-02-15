@@ -1,9 +1,8 @@
-package com.example.yumly.ui;
+package com.example.yumly;
 
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.yumly.R;
 
 public class MainActivity extends AppCompatActivity {
 

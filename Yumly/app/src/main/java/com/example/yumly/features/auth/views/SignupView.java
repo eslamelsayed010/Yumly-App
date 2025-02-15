@@ -1,17 +1,20 @@
-package com.example.yumly.ui.auth;
+package com.example.yumly.features.auth.views;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.example.yumly.R;
 import com.example.yumly.databinding.FragmentSignupViewBinding;
-import com.example.yumly.models.UserModel;
+import com.example.yumly.data.models.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -43,6 +46,10 @@ public class SignupView extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         binding.signupWithEmailId.setOnClickListener(v -> signUpUser(view));
+        binding.arrowBackId.setOnClickListener(v-> {
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_container);
+            navController.navigateUp();
+        });
     }
 
     private void signUpUser(View view) {
