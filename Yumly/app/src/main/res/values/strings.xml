@@ -27,6 +27,10 @@
     <string name="meal_of_the_day">Meal of the day</string>
     <string name="popular_recipes">Popular recipes</string>
     <string name="roasted_chicken">Roasted Chicken</string>
+    <string name="home">Home</string>
+    <string name="favorite">Favorite</string>
+    <string name="plane">Plane</string>
+    <string name="settings">Settings</string>
 
 
 </resources>

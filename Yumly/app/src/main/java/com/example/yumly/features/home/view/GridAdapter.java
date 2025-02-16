@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
 import com.example.yumly.R;
 import com.example.yumly.data.models.MealModel;
 
@@ -33,8 +34,8 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MealModel meal = meals.get(position);
-        holder.textView.setText(meal.getTitle());
-        // Load image into holder.imageView if needed
+        holder.textView.setText(meal.getStrMeal());
+        Glide.with(context).load(meal.getStrMealThumb()).into(holder.imageView);
     }
 
     @Override

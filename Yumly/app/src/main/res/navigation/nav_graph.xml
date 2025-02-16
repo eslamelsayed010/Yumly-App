@@ -58,5 +58,13 @@
         <argument
             android:name="user"
             app:argType="com.example.yumly.data.models.UserModel" />
+        <action
+            android:id="@+id/action_homeView_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.yumly.features.details.view.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
 </navigation>

@@ -50,18 +50,27 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+    //lottie
     implementation(libs.lottie)
     implementation(libs.material.v190)
 
-
+   //firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.play.services.auth)
     implementation(libs.google.firebase.auth)
-
     implementation(libs.facebook.login)
 
+    //nav
     implementation(libs.navigation.fragment.v253)
     implementation(libs.navigation.ui.v253)
 
+    //retrofit, glide
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    //Room
+    implementation ("androidx.room:room-runtime:2.6.1")
+    annotationProcessor ("androidx.room:room-compiler:2.6.1")
 
 }

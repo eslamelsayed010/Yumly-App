@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
         <androidx.cardview.widget.CardView
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:elevation="15dp"
@@ -26,26 +26,31 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/food_image" />
-            <FrameLayout
-                android:id="@+id/fav_btn_id"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="end"
-                android:layout_margin="10dp"
-                android:background="@drawable/image_with_circle_background">
+<!--            <FrameLayout-->
+<!--                android:id="@+id/fav_btn_id"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_gravity="end"-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:background="@drawable/image_with_circle_background">-->
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/favorite" />
-            </FrameLayout>
+<!--           -->
+<!--            </FrameLayout>-->
+            <ImageView
+                android:layout_margin="10dp"
+                android:layout_gravity="end"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/solid_favorite"
+                app:tint="@color/white" />
+
         </androidx.cardview.widget.CardView>
         <TextView
             android:layout_marginLeft="10dp"
             android:id="@+id/grid_txt_id"
             android:text="@string/roasted_chicken"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:textStyle="bold"
             android:textColor="@color/primaryColor"
             android:layout_width="match_parent"
