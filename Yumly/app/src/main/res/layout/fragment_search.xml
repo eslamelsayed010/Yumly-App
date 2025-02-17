@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Search_fragment_id"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".features.search.view.SearchFragment">
+
+    <ImageView
+        android:id="@+id/arrow_back_id"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="start"
+        android:src="@drawable/arrow_back"
+        app:tint="@color/black" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/search_text_field_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal= "15dp"
+        android:hint="@string/search"
+        app:boxBackgroundColor="@color/white"
+        app:boxStrokeColor="@color/helperColor"
+        app:boxStrokeWidth="2dp"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:counterTextColor="@color/black"
+        app:hintTextColor="@color/helperColor"
+        app:startIconDrawable="@drawable/search">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="45dp"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.chip.ChipGroup
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:id="@+id/chip_group_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:singleSelection="true">
+        <com.google.android.material.chip.Chip
+
+            android:elevation="8dp"
+            android:textAlignment="center"
+            android:layout_width="100dp"
+            android:id="@+id/chip2"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_height="wrap_content"
+            android:text="@string/category" />
+        <com.google.android.material.chip.Chip
+            android:elevation="8dp"
+            android:textAlignment="center"
+            android:layout_width="100dp"
+            android:id="@+id/chip3"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_height="wrap_content"
+            android:text="@string/ingredient" />
+        <com.google.android.material.chip.Chip
+            android:elevation="8dp"
+            android:id="@+id/chip4"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:textAlignment="center"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/country" />
+    </com.google.android.material.chip.ChipGroup>
+    <View
+        android:layout_width="10dp"
+        android:layout_height="20dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="100dp"
+        android:numColumns="3"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/search_item" />
+
+</LinearLayout>
