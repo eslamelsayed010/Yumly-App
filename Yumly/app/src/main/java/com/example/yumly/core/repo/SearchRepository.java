@@ -56,8 +56,8 @@ public class SearchRepository {
         countries.add(new CountryModel("Vietnamese", R.drawable.vietnam));
     }
 
-    public void getRemoteData(NetworkCallback networkCallback){
-        remoteDataSource.getStrCategoryResponse(networkCallback);
+    public void getRemoteCategory(NetworkCallback networkCallback){
+        remoteDataSource.getCategory(networkCallback);
     }
 
     public ArrayList<CountryModel> getCountries() {

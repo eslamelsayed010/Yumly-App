@@ -13,9 +13,9 @@ public interface MealServices {
     @GET("/api/json/v1/1/random.php")
     Call<MealResponse> getRandomMeal();
 
-    @GET("/api/json/v1/1/list.php?c=list")
-    Call<CatResponse> getStrCategory();
-
     @GET("/api/json/v1/1/filter.php")
     Single<MealResponse> getMealByCountry(@Query("a") String country);
+
+    @GET("/api/json/v1/1/categories.php")
+    Single<MealResponse> getCategory();
 }

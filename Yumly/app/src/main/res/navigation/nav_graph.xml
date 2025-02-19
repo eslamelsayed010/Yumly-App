@@ -74,10 +74,18 @@
         android:id="@+id/searchFragment"
         android:name="com.example.yumly.features.search.view.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchResultFragment"
         android:name="com.example.yumly.SearchResultFragment"
         android:label="fragment_search_result"
-        tools:layout="@layout/fragment_search_result" />
+        tools:layout="@layout/fragment_search_result" >
+        <argument
+            android:name="meals"
+            app:argType="com.example.yumly.core.models.MealModel[]" />
+    </fragment>
 </navigation>

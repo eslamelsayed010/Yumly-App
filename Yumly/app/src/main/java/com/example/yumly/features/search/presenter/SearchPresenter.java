@@ -1,5 +1,6 @@
 package com.example.yumly.features.search.presenter;
 
+import com.example.yumly.core.models.CatModel;
 import com.example.yumly.core.models.MealModel;
 import com.example.yumly.core.remote.NetworkCallback;
 import com.example.yumly.core.repo.SearchRepository;
@@ -29,8 +30,8 @@ public class SearchPresenter implements NetworkCallback {
         return repo.getCountries();
     }
 
-    public void getRemoteData(){
-        repo.getRemoteData(this);
+    public void getCategory(){
+        repo.getRemoteCategory(this);
     }
 
     public void getRemoteDataByCountry(String country){
@@ -39,12 +40,6 @@ public class SearchPresenter implements NetworkCallback {
 
     @Override
     public void onSuccess(ArrayList<MealModel> meals) {}
-
-    @Override
-    public void onSuccessGetCat(ArrayList<String> cat) {
-        view.getCategory(cat);
-
-    }
 
     @Override
     public void onSuccessGetMealByCountry(ArrayList<MealModel> meals) {
@@ -57,6 +52,11 @@ public class SearchPresenter implements NetworkCallback {
 
     @Override
     public void onSuccessRandom(ArrayList<MealModel> meals) {}
+
+    @Override
+    public void onSuccessGetCat(ArrayList<CatModel> cats) {
+        view.getCategory(cats);
+    }
 
 
 }

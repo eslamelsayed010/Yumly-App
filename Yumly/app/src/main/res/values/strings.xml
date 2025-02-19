@@ -36,6 +36,8 @@
     <string name="ingredient">Ingredient</string>
     <string name="country">Country</string>
     <string name="egypt">Egypt</string>
+    <string name="result">Result</string>
+    <string name="beef_burger">Beef Burger</string>
 
 
 </resources>

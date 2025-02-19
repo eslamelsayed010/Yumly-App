@@ -78,25 +78,7 @@ public class MealRemoteDataSource {
         });
     }
 
-    public void getStrCategoryResponse(NetworkCallback callback) {
-        Call<CatResponse> response = service.getStrCategory();
-        response.enqueue(new Callback<CatResponse>() {
-            @Override
-            public void onResponse(Call<CatResponse> call, Response<CatResponse> response) {
-                if (response.isSuccessful()) {
-                    strCategories = response.body().getCat();
-                    callback.onSuccessGetCat(strCategories);
-                } else {
-                    callback.onFailure("NO RESPONSE");
-                }
-            }
 
-            @Override
-            public void onFailure(Call<CatResponse> call, Throwable throwable) {
-                callback.onFailure("Failure TO GET DATA"+ throwable.toString());
-            }
-        });
-    }
 
     @SuppressLint("CheckResult")
     public void getMealByCountry(NetworkCallback callback, String country) {
@@ -106,6 +88,18 @@ public class MealRemoteDataSource {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         meals -> callback.onSuccessGetMealByCountry(meals), // Pass the list of products
+                        error -> callback.onFailure(error.getMessage()) // Handle errors
+                );
+    }
+
+    @SuppressLint("CheckResult")
+    public void getCategory(NetworkCallback callback) {
+        service.getCategory()
+                .subscribeOn(Schedulers.io())
+                .map(response -> response.getCats()) // Extract the list of products
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        cat -> callback.onSuccessGetCat(cat), // Pass the list of products
                         error -> callback.onFailure(error.getMessage()) // Handle errors
                 );
     }

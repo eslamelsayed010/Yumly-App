@@ -10,18 +10,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.yumly.R;
+import com.example.yumly.core.models.CatModel;
 
 import java.util.ArrayList;
 
 public class GridAdapterCategory extends RecyclerView.Adapter<GridAdapterCategory.ViewHolder> {
 
     private Context context;
-    private ArrayList<String> strCategory;
+    private ArrayList<CatModel> cats;
 
-    public GridAdapterCategory(Context context, ArrayList<String> strCategory) {
+    public GridAdapterCategory(Context context, ArrayList<CatModel> cats) {
         this.context = context;
-        this.strCategory = strCategory;
+        this.cats = cats;
     }
 
     @NonNull
@@ -33,14 +35,14 @@ public class GridAdapterCategory extends RecyclerView.Adapter<GridAdapterCategor
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String category = strCategory.get(position);
-        holder.textView.setText(category);
-        holder.imageView.setImageResource(R.drawable.food_image);
+        CatModel category = cats.get(position);
+        holder.textView.setText(category.getStrCategory());
+        Glide.with(context).load(category.getStrCategoryThumb()).into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return strCategory.size();
+        return cats.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

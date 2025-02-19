@@ -1,12 +1,15 @@
 package com.example.yumly.core.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "meal_table")
-public class MealModel {
+public class MealModel implements Parcelable {
 
     @PrimaryKey
     @NonNull
@@ -100,6 +103,48 @@ public class MealModel {
         this.strIngredient19 = strIngredient19;
         this.strIngredient20 = strIngredient20;
     }
+
+    protected MealModel(Parcel in) {
+        idMeal = in.readString();
+        strMeal = in.readString();
+        strCategory = in.readString();
+        strArea = in.readString();
+        strInstructions = in.readString();
+        strMealThumb = in.readString();
+        strYoutube = in.readString();
+        strIngredient1 = in.readString();
+        strIngredient2 = in.readString();
+        strIngredient3 = in.readString();
+        strIngredient4 = in.readString();
+        strIngredient5 = in.readString();
+        strIngredient6 = in.readString();
+        strIngredient7 = in.readString();
+        strIngredient8 = in.readString();
+        strIngredient9 = in.readString();
+        strIngredient10 = in.readString();
+        strIngredient11 = in.readString();
+        strIngredient12 = in.readString();
+        strIngredient13 = in.readString();
+        strIngredient14 = in.readString();
+        strIngredient15 = in.readString();
+        strIngredient16 = in.readString();
+        strIngredient17 = in.readString();
+        strIngredient18 = in.readString();
+        strIngredient19 = in.readString();
+        strIngredient20 = in.readString();
+    }
+
+    public static final Creator<MealModel> CREATOR = new Creator<MealModel>() {
+        @Override
+        public MealModel createFromParcel(Parcel in) {
+            return new MealModel(in);
+        }
+
+        @Override
+        public MealModel[] newArray(int size) {
+            return new MealModel[size];
+        }
+    };
 
     // Getters and Setters
     public String getIdMeal() {
@@ -350,5 +395,41 @@ public class MealModel {
                 ", strIngredient19='" + strIngredient19 + '\'' +
                 ", strIngredient20='" + strIngredient20 + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(idMeal);
+        dest.writeString(strMeal);
+        dest.writeString(strCategory);
+        dest.writeString(strArea);
+        dest.writeString(strInstructions);
+        dest.writeString(strMealThumb);
+        dest.writeString(strYoutube);
+        dest.writeString(strIngredient1);
+        dest.writeString(strIngredient2);
+        dest.writeString(strIngredient3);
+        dest.writeString(strIngredient4);
+        dest.writeString(strIngredient5);
+        dest.writeString(strIngredient6);
+        dest.writeString(strIngredient7);
+        dest.writeString(strIngredient8);
+        dest.writeString(strIngredient9);
+        dest.writeString(strIngredient10);
+        dest.writeString(strIngredient11);
+        dest.writeString(strIngredient12);
+        dest.writeString(strIngredient13);
+        dest.writeString(strIngredient14);
+        dest.writeString(strIngredient15);
+        dest.writeString(strIngredient16);
+        dest.writeString(strIngredient17);
+        dest.writeString(strIngredient18);
+        dest.writeString(strIngredient19);
+        dest.writeString(strIngredient20);
     }
 }
