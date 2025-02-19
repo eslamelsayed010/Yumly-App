@@ -38,12 +38,21 @@ public class SearchPresenter implements NetworkCallback {
         repo.getRemoteMealByName(this, country);
     }
 
+    public void getRemoteDataByCategory(String cat){
+        repo.getRemoteMealByCategory(this, cat);
+    }
+
     @Override
     public void onSuccess(ArrayList<MealModel> meals) {}
 
     @Override
     public void onSuccessGetMealByCountry(ArrayList<MealModel> meals) {
         view.getDataByCountry(meals);
+    }
+
+    @Override
+    public void onSuccessGetMealByCategory(ArrayList<MealModel> meals) {
+        view.getDataByCategory(meals);
     }
 
     public void onFailure(String errorMessage) {

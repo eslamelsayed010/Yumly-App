@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -130,7 +131,7 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
         if (filteredNames.isEmpty()) {
             Toast.makeText(getActivity(), "No matches found", Toast.LENGTH_SHORT).show();
         } else {
-            GridAdapterCategory gridAdapterCategory = new GridAdapterCategory(requireContext(), new ArrayList<>(filteredNames));
+            GridAdapterCategory gridAdapterCategory = new GridAdapterCategory(requireContext(), new ArrayList<>(filteredNames), this);
             binding.recyclerViewId.setAdapter(gridAdapterCategory);
         }
     }
@@ -159,7 +160,7 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
                 if (isChecked) {
                     switch (chip.getText().toString()) {
                         case "Category":
-                            GridAdapterCategory gridAdapterCategory = new GridAdapterCategory(requireContext(), cats);
+                            GridAdapterCategory gridAdapterCategory = new GridAdapterCategory(requireContext(), cats, this);
                             binding.recyclerViewId.setAdapter(gridAdapterCategory);
                             break;
                         case "Ingredient":
@@ -196,6 +197,14 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
     }
 
     @Override
+    public void getDataByCategory(ArrayList<MealModel> cat) {
+        MealModel[] mealArray = cat.toArray(new MealModel[0]);
+        SearchFragmentDirections.ActionSearchFragmentToSearchResultFragment action = SearchFragmentDirections
+                .actionSearchFragmentToSearchResultFragment(mealArray);
+        Navigation.findNavController(getView()).navigate(action);
+    }
+
+    @Override
     public void getCategory(ArrayList<CatModel> cats) {
         this.cats = cats;
     }
@@ -203,5 +212,10 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
     @Override
     public void onCountryClick(CountryModel countryModel) {
         presenter.getRemoteDataByCountry(countryModel.getName());
+    }
+
+    @Override
+    public void onCategoryClick(CatModel catModel) {
+        presenter.getRemoteDataByCategory(catModel.getStrCategory());
     }
 }

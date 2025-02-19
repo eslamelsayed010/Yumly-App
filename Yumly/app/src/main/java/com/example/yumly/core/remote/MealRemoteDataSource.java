@@ -93,6 +93,18 @@ public class MealRemoteDataSource {
     }
 
     @SuppressLint("CheckResult")
+    public void getMealByCategory(NetworkCallback callback, String cat) {
+        service.getMealByCategory(cat)
+                .subscribeOn(Schedulers.io())
+                .map(response -> response.getMeals()) // Extract the list of products
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        meals -> callback.onSuccessGetMealByCategory(meals), // Pass the list of products
+                        error -> callback.onFailure(error.getMessage()) // Handle errors
+                );
+    }
+
+    @SuppressLint("CheckResult")
     public void getCategory(NetworkCallback callback) {
         service.getCategory()
                 .subscribeOn(Schedulers.io())

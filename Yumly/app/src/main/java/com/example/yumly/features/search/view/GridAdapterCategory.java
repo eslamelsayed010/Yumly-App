@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,8 +21,10 @@ public class GridAdapterCategory extends RecyclerView.Adapter<GridAdapterCategor
 
     private Context context;
     private ArrayList<CatModel> cats;
+    OnItemClickListener listener;
 
-    public GridAdapterCategory(Context context, ArrayList<CatModel> cats) {
+    public GridAdapterCategory(Context context, ArrayList<CatModel> cats, OnItemClickListener listener) {
+        this.listener = listener;
         this.context = context;
         this.cats = cats;
     }
@@ -38,6 +41,7 @@ public class GridAdapterCategory extends RecyclerView.Adapter<GridAdapterCategor
         CatModel category = cats.get(position);
         holder.textView.setText(category.getStrCategory());
         Glide.with(context).load(category.getStrCategoryThumb()).into(holder.imageView);
+        holder.linearLayout.setOnClickListener(v-> listener.onCategoryClick(category));
     }
 
     @Override
@@ -48,11 +52,13 @@ public class GridAdapterCategory extends RecyclerView.Adapter<GridAdapterCategor
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textView;
+        LinearLayout linearLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.ships_image_id);
             textView = itemView.findViewById(R.id.ships_text_id);
+            linearLayout =itemView.findViewById(R.id.item_click_id);
         }
     }
 }

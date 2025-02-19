@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public interface SearchView {
     void getData(ArrayList<CountryModel> countries);
     void getDataByCountry(ArrayList<MealModel> countries);
+    void getDataByCategory(ArrayList<MealModel> meals);
     void getCategory(ArrayList<CatModel> cats);
     void onError(String msg);
 }

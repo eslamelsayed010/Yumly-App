@@ -51,5 +51,10 @@ public class HomePresenter implements NetworkCallback {
 
     }
 
+    @Override
+    public void onSuccessGetMealByCategory(ArrayList<MealModel> catResModels) {
+
+    }
+
 }
 

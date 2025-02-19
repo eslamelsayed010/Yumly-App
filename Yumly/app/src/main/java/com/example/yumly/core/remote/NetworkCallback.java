@@ -10,4 +10,5 @@ public interface NetworkCallback {
     void onSuccessRandom(ArrayList<MealModel> meals);
     void onSuccessGetCat(ArrayList<CatModel> cats);
     void onSuccessGetMealByCountry(ArrayList<MealModel> meals);
+    void onSuccessGetMealByCategory(ArrayList<MealModel> meals);
 }
