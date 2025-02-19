@@ -65,12 +65,22 @@ dependencies {
     implementation(libs.navigation.ui.v253)
 
     //retrofit, glide
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.glide)
 
     //Room
-    implementation ("androidx.room:room-runtime:2.6.1")
-    annotationProcessor ("androidx.room:room-compiler:2.6.1")
+    implementation (libs.room.runtime)
+    annotationProcessor (libs.room.compiler)
+
+    //JavaRX
+    implementation(libs.rxandroid)
+    implementation(libs.rxjava)
+
+    //RxJava Retrofit
+    implementation(libs.rxjava3.retrofit.adapter)
+
+    //RXJava Room
+    implementation(libs.room.rxjava3)
 
 }

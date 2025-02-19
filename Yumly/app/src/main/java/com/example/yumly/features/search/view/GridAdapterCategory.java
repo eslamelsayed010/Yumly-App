@@ -1,4 +1,4 @@
-package com.example.yumly.features.home.view;
+package com.example.yumly.features.search.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,41 +6,41 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
+
 import com.example.yumly.R;
-import com.example.yumly.core.models.MealModel;
 
 import java.util.ArrayList;
 
-public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
+public class GridAdapterCategory extends RecyclerView.Adapter<GridAdapterCategory.ViewHolder> {
 
     private Context context;
-    private ArrayList<MealModel> meals;
+    private ArrayList<String> strCategory;
 
-    public GridAdapter(Context context, ArrayList<MealModel> meals) {
+    public GridAdapterCategory(Context context, ArrayList<String> strCategory) {
         this.context = context;
-        this.meals = meals;
+        this.strCategory = strCategory;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.grid_view_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.search_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        MealModel meal = meals.get(position);
-        holder.textView.setText(meal.getStrMeal());
-        Glide.with(context).load(meal.getStrMealThumb()).into(holder.imageView);
+        String category = strCategory.get(position);
+        holder.textView.setText(category);
+        holder.imageView.setImageResource(R.drawable.food_image);
     }
 
     @Override
     public int getItemCount() {
-        return meals.size();
+        return strCategory.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -49,8 +49,8 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.grid_image_id);
-            textView = itemView.findViewById(R.id.grid_txt_id);
+            imageView = itemView.findViewById(R.id.ships_image_id);
+            textView = itemView.findViewById(R.id.ships_text_id);
         }
     }
 }

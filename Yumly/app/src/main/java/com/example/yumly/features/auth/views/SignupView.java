@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.yumly.R;
 import com.example.yumly.databinding.FragmentSignupViewBinding;
-import com.example.yumly.data.models.UserModel;
+import com.example.yumly.core.models.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

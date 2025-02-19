@@ -1,7 +1,9 @@
 package com.example.yumly.core.remote;
 
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface MealServices {
 
@@ -10,4 +12,10 @@ public interface MealServices {
 
     @GET("/api/json/v1/1/random.php")
     Call<MealResponse> getRandomMeal();
+
+    @GET("/api/json/v1/1/list.php?c=list")
+    Call<CatResponse> getStrCategory();
+
+    @GET("/api/json/v1/1/filter.php")
+    Single<MealResponse> getMealByCountry(@Query("a") String country);
 }

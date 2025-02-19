@@ -1,6 +1,6 @@
 package com.example.yumly.core.remote;
 
-import com.example.yumly.data.models.MealModel;
+import com.example.yumly.core.models.MealModel;
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 

@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.yumly.R;
-import com.example.yumly.data.models.UserModel;
+import com.example.yumly.core.models.UserModel;
 import com.example.yumly.databinding.FragmentAuthMenuBinding;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.Identity;

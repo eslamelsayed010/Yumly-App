@@ -3,7 +3,9 @@ package com.example.yumly.core.repo;
 import androidx.lifecycle.LiveData;
 import com.example.yumly.core.local.MealsLocalDataSource;
 import com.example.yumly.core.remote.MealRemoteDataSource;
-import com.example.yumly.data.models.MealModel;
+import com.example.yumly.core.models.MealModel;
+import com.example.yumly.core.remote.NetworkCallback;
+
 import java.util.List;
 
 public class MealsRepository {
@@ -40,8 +42,9 @@ public class MealsRepository {
     }
 
 
-    public void getRemoteData(com.example.yumly.core.remote.NetworkCallback networkCallback){
+    public void getRemoteData(NetworkCallback networkCallback){
         remoteDataSource.getResponse(networkCallback);
         remoteDataSource.getRandomResponse(networkCallback);
     }
+
 }

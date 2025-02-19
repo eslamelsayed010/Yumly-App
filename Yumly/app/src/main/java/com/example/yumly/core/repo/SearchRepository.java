@@ -1,17 +1,31 @@
 package com.example.yumly.core.repo;
 
 import com.example.yumly.R;
-import com.example.yumly.data.models.CountryModel;
+import com.example.yumly.core.models.CountryModel;
+import com.example.yumly.core.remote.MealRemoteDataSource;
+import com.example.yumly.core.remote.NetworkCallback;
 
 import java.util.ArrayList;
 
-public class CountryRepository {
+public class SearchRepository {
 
-    private static CountryRepository countryRepository = null;
+    private static SearchRepository searchRepository = null;
+    MealRemoteDataSource remoteDataSource;
 
     ArrayList<CountryModel> countries = new ArrayList<>();
 
-    private CountryRepository(){
+    private SearchRepository(MealRemoteDataSource remoteDataSource){
+        this.remoteDataSource = remoteDataSource;
+        fillCountryList();
+    }
+
+    public static SearchRepository getInstance(MealRemoteDataSource remoteDataSource){
+        if (searchRepository == null)
+            searchRepository = new SearchRepository(remoteDataSource);
+        return searchRepository;
+    }
+
+    void fillCountryList(){
         countries.add(new CountryModel("Egyptian", R.drawable.egypt));
         countries.add(new CountryModel("American", R.drawable.america));
         countries.add(new CountryModel("British", R.drawable.britain));
@@ -42,13 +56,15 @@ public class CountryRepository {
         countries.add(new CountryModel("Vietnamese", R.drawable.vietnam));
     }
 
-    public static CountryRepository getInstance(){
-        if (countryRepository == null)
-            countryRepository = new CountryRepository();
-        return countryRepository;
+    public void getRemoteData(NetworkCallback networkCallback){
+        remoteDataSource.getStrCategoryResponse(networkCallback);
     }
 
     public ArrayList<CountryModel> getCountries() {
         return countries;
+    }
+
+    public void getRemoteMealByName(NetworkCallback networkCallback,String country){
+        remoteDataSource.getMealByCountry(networkCallback, country);
     }
 }

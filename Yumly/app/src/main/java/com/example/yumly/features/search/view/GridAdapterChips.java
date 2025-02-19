@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.yumly.R;
-import com.example.yumly.data.models.CountryModel;
+import com.example.yumly.core.models.CountryModel;
 import java.util.ArrayList;
 
 public class GridAdapterChips extends RecyclerView.Adapter<GridAdapterChips.ViewHolder> {

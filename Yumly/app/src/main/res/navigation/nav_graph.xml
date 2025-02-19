@@ -57,7 +57,7 @@
         tools:layout="@layout/fragment_home_view" >
         <argument
             android:name="user"
-            app:argType="com.example.yumly.data.models.UserModel" />
+            app:argType="com.example.yumly.core.models.UserModel" />
         <action
             android:id="@+id/action_homeView_to_detailsFragment"
             app:destination="@id/detailsFragment" />
@@ -75,4 +75,9 @@
         android:name="com.example.yumly.features.search.view.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.example.yumly.SearchResultFragment"
+        android:label="fragment_search_result"
+        tools:layout="@layout/fragment_search_result" />
 </navigation>

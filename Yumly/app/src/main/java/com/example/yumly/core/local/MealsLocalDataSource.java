@@ -4,7 +4,7 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 import com.example.yumly.core.local.db.AppDatabase;
 import com.example.yumly.core.local.db.DAO;
-import com.example.yumly.data.models.MealModel;
+import com.example.yumly.core.models.MealModel;
 import java.util.List;
 
 public class MealsLocalDataSource {

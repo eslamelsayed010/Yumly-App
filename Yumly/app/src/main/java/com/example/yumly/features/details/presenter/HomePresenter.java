@@ -2,7 +2,7 @@ package com.example.yumly.features.details.presenter;
 
 import com.example.yumly.core.remote.NetworkCallback;
 import com.example.yumly.core.repo.MealsRepository;
-import com.example.yumly.data.models.MealModel;
+import com.example.yumly.core.models.MealModel;
 import com.example.yumly.features.details.view.MyHomeView;
 
 import java.util.ArrayList;
@@ -38,6 +38,14 @@ public class HomePresenter implements NetworkCallback {
     @Override
     public void onSuccessRandom(ArrayList<MealModel> meals) {
         view.getRandomData(meals);
+    }
+
+    @Override
+    public void onSuccessGetCat(ArrayList<String> cat) {}
+
+    @Override
+    public void onSuccessGetMealByCountry(ArrayList<MealModel> meals) {
+
     }
 
 }

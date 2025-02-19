@@ -1,6 +1,6 @@
 package com.example.yumly.features.home.view;
 
-import com.example.yumly.data.models.MealModel;
+import com.example.yumly.core.models.MealModel;
 
 import java.util.ArrayList;
 

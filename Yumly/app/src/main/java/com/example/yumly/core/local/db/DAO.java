@@ -6,7 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import com.example.yumly.data.models.MealModel;
+import com.example.yumly.core.models.MealModel;
 
 import java.util.List;
 

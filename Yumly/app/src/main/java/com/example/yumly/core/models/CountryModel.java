@@ -1,4 +1,4 @@
-package com.example.yumly.data.models;
+package com.example.yumly.core.models;
 
 public class CountryModel {
     private String name;

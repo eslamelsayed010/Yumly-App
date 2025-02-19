@@ -14,9 +14,9 @@ import com.bumptech.glide.Glide;
 import com.example.yumly.core.local.MealsLocalDataSource;
 import com.example.yumly.core.remote.MealRemoteDataSource;
 import com.example.yumly.core.repo.MealsRepository;
-import com.example.yumly.data.models.MealModel;
+import com.example.yumly.core.models.MealModel;
 import com.example.yumly.databinding.FragmentHomeViewBinding;
-import com.example.yumly.data.models.UserModel;
+import com.example.yumly.core.models.UserModel;
 import com.example.yumly.features.home.presenter.HomePresenter;
 
 import java.util.ArrayList;

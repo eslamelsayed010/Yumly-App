@@ -9,7 +9,7 @@ import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.FragmentActivity;
 import com.example.yumly.R;
-import com.example.yumly.data.models.UserModel;
+import com.example.yumly.core.models.UserModel;
 import com.example.yumly.features.auth.views.my_view.GoogleView;
 import com.facebook.CallbackManager;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;

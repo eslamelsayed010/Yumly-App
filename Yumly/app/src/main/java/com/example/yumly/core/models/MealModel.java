@@ -1,4 +1,4 @@
-package com.example.yumly.data.models;
+package com.example.yumly.core.models;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

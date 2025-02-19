@@ -1,8 +1,10 @@
 [versions]
 agp = "8.8.0"
 butterknifeCompiler = "10.2.3"
+converterGson = "2.11.0"
 facebookLogin = "+"
 firebaseBom = "33.9.0"
+glide = "4.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -19,12 +21,21 @@ navigationUiVersion = "2.5.3"
 playServicesAuth = "21.3.0"
 navigationFragment = "2.8.6"
 navigationUi = "2.8.6"
+retrofit = "2.11.0"
+roomRuntime = "2.6.1"
+roomCompiler = "2.6.1"
+roomRxjava3 = "2.6.1"
+rxandroid = "3.0.2"
+rxjava = "3.1.5"
+rxjava3RetrofitAdapter = "3.0.0"
 
 [libraries]
 butterknife = { module = "com.jakewharton:butterknife", version.ref = "butterknifeCompiler" }
 butterknife-compiler = { module = "com.jakewharton:butterknife-compiler", version.ref = "butterknifeCompiler" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 facebook-login = { module = "com.facebook.android:facebook-login", version.ref = "facebookLogin" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 google-firebase-auth = { module = "com.google.firebase:firebase-auth" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -41,6 +52,13 @@ navigation-ui-v253 = { module = "androidx.navigation:navigation-ui", version.ref
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+room-rxjava3 = { module = "androidx.room:room-rxjava3", version.ref = "roomRxjava3" }
+rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
+rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
+rxjava3-retrofit-adapter = { module = "com.github.akarnokd:rxjava3-retrofit-adapter", version.ref = "rxjava3RetrofitAdapter" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
