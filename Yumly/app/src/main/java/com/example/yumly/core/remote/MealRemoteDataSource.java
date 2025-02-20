@@ -115,4 +115,16 @@ public class MealRemoteDataSource {
                         error -> callback.onFailure(error.getMessage()) // Handle errors
                 );
     }
+
+    @SuppressLint("CheckResult")
+    public void getIngredients(NetworkCallback callback) {
+        service.getIngredients()
+                .subscribeOn(Schedulers.io())
+                .map(response -> response.getIngredients()) // Extract the list of products
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        ingredients -> callback.onSuccessGetIngredients(ingredients), // Pass the list of products
+                        error -> callback.onFailure(error.getMessage()) // Handle errors
+                );
+    }
 }

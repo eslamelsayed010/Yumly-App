@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.yumly.R;
 import com.example.yumly.core.models.CatModel;
+import com.example.yumly.core.models.IngredientModel;
 import com.example.yumly.core.models.MealModel;
 import com.example.yumly.core.remote.MealRemoteDataSource;
 import com.example.yumly.core.repo.SearchRepository;
@@ -37,7 +38,7 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
 
     FragmentSearchBinding binding;
     ArrayList<CountryModel> countries = new ArrayList<>();
-    ArrayList<String> strCategory = new ArrayList<>();
+    ArrayList<IngredientModel> ingredients = new ArrayList<>();
     SearchPresenter presenter;
     ArrayList<CatModel> cats;
 
@@ -96,7 +97,7 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
                         filterCategoryName(query);
                         break;
                     case "Ingredient":
-
+                        filterIngredientsName(query);
                         break;
                     case "Country":
                         filterCountryName(query);
@@ -136,10 +137,26 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
         }
     }
 
+    private void filterIngredientsName(String query) {
+        List<IngredientModel> filteredNames = ingredients
+                .stream()
+                .filter(name -> name.getStrIngredient()
+                        .toLowerCase()
+                        .startsWith(query.toLowerCase()))
+                .collect(Collectors.toList());
+        if (filteredNames.isEmpty()) {
+            Toast.makeText(getActivity(), "No matches found", Toast.LENGTH_SHORT).show();
+        } else {
+            GridAdapterIngredients gridAdapterIngredients = new GridAdapterIngredients(requireContext(), new ArrayList<>(filteredNames), this);
+            binding.recyclerViewId.setAdapter(gridAdapterIngredients);
+        }
+    }
+
     private void initPresenter() {
         presenter = new SearchPresenter(this, SearchRepository.getInstance(MealRemoteDataSource.getInstance()));
         presenter.getData();
         presenter.getCategory();
+        presenter.getRemoteIngredients();
     }
 
     private void arrowBackOnClick() {
@@ -164,11 +181,11 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
                             binding.recyclerViewId.setAdapter(gridAdapterCategory);
                             break;
                         case "Ingredient":
-                            GridAdapterChips gridAdapter = new GridAdapterChips(requireContext(), countries, this);
-                            binding.recyclerViewId.setAdapter(gridAdapter);
+                            GridAdapterIngredients gridAdapterIngredients = new GridAdapterIngredients(requireContext(), ingredients, this);
+                            binding.recyclerViewId.setAdapter(gridAdapterIngredients);
                             break;
                         case "Country":
-                            gridAdapter = new GridAdapterChips(requireContext(), countries, this);
+                            GridAdapterChips gridAdapter = new GridAdapterChips(requireContext(), countries, this);
                             binding.recyclerViewId.setAdapter(gridAdapter);
                             break;
                     }
@@ -202,6 +219,11 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
         SearchFragmentDirections.ActionSearchFragmentToSearchResultFragment action = SearchFragmentDirections
                 .actionSearchFragmentToSearchResultFragment(mealArray);
         Navigation.findNavController(getView()).navigate(action);
+    }
+
+    @Override
+    public void getIngredients(ArrayList<IngredientModel> ingredients) {
+        this.ingredients = ingredients;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.yumly.features.search.presenter;
 
 import com.example.yumly.core.models.CatModel;
+import com.example.yumly.core.models.IngredientModel;
 import com.example.yumly.core.models.MealModel;
 import com.example.yumly.core.remote.NetworkCallback;
 import com.example.yumly.core.repo.SearchRepository;
@@ -42,6 +43,10 @@ public class SearchPresenter implements NetworkCallback {
         repo.getRemoteMealByCategory(this, cat);
     }
 
+    public void getRemoteIngredients(){
+        repo.getRemoteIngredients(this);
+    }
+
     @Override
     public void onSuccess(ArrayList<MealModel> meals) {}
 
@@ -53,6 +58,11 @@ public class SearchPresenter implements NetworkCallback {
     @Override
     public void onSuccessGetMealByCategory(ArrayList<MealModel> meals) {
         view.getDataByCategory(meals);
+    }
+
+    @Override
+    public void onSuccessGetIngredients(ArrayList<IngredientModel> ingredients) {
+        view.getIngredients(ingredients);
     }
 
     public void onFailure(String errorMessage) {

@@ -1,6 +1,7 @@
 package com.example.yumly.core.remote;
 
 import com.example.yumly.core.models.CatModel;
+import com.example.yumly.core.models.IngredientModel;
 import com.example.yumly.core.models.MealModel;
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
@@ -13,7 +14,10 @@ public class MealResponse {
     @SerializedName("categories")
     private ArrayList<CatModel> cats;
 
-    public MealResponse(ArrayList<MealModel> meals, ArrayList<CatModel> cats) {
+    public MealResponse(ArrayList<MealModel> meals,
+                        ArrayList<CatModel> cats,
+                        ArrayList<IngredientModel> ingredients
+    ) {
         this.meals = meals;
         this.cats = cats;
     }

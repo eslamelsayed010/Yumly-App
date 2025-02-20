@@ -1,6 +1,7 @@
 package com.example.yumly.features.home.presenter;
 
 import com.example.yumly.core.models.CatModel;
+import com.example.yumly.core.models.IngredientModel;
 import com.example.yumly.core.remote.NetworkCallback;
 import com.example.yumly.core.repo.MealsRepository;
 import com.example.yumly.core.models.MealModel;
@@ -53,6 +54,11 @@ public class HomePresenter implements NetworkCallback {
 
     @Override
     public void onSuccessGetMealByCategory(ArrayList<MealModel> catResModels) {
+
+    }
+
+    @Override
+    public void onSuccessGetIngredients(ArrayList<IngredientModel> ingredients) {
 
     }
 

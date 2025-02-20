@@ -21,4 +21,7 @@ public interface MealServices {
 
     @GET("/api/json/v1/1/categories.php")
     Single<MealResponse> getCategory();
+
+    @GET("/api/json/v1/1/list.php?i=list")
+    Single<IngredientResponse> getIngredients();
 }

@@ -71,4 +71,8 @@ public class SearchRepository {
     public void getRemoteMealByCategory(NetworkCallback networkCallback, String cat){
         remoteDataSource.getMealByCategory(networkCallback, cat);
     }
+
+    public void getRemoteIngredients(NetworkCallback networkCallback){
+        remoteDataSource.getIngredients(networkCallback);
+    }
 }
