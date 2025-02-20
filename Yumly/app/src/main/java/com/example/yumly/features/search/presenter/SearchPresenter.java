@@ -43,6 +43,10 @@ public class SearchPresenter implements NetworkCallback {
         repo.getRemoteMealByCategory(this, cat);
     }
 
+    public void getRemoteDataByIngredients(String ingredient){
+        repo.getRemoteMealByIngredient(this, ingredient);
+    }
+
     public void getRemoteIngredients(){
         repo.getRemoteIngredients(this);
     }
@@ -58,6 +62,11 @@ public class SearchPresenter implements NetworkCallback {
     @Override
     public void onSuccessGetMealByCategory(ArrayList<MealModel> meals) {
         view.getDataByCategory(meals);
+    }
+
+    @Override
+    public void onSuccessGetMealByIngredients(ArrayList<MealModel> meals) {
+        view.getDataByIngredients(meals);
     }
 
     @Override

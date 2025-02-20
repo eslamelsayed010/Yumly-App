@@ -58,6 +58,11 @@ public class HomePresenter implements NetworkCallback {
     }
 
     @Override
+    public void onSuccessGetMealByIngredients(ArrayList<MealModel> meals) {
+
+    }
+
+    @Override
     public void onSuccessGetIngredients(ArrayList<IngredientModel> ingredients) {
 
     }

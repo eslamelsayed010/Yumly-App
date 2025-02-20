@@ -222,6 +222,14 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
     }
 
     @Override
+    public void getDataByIngredients(ArrayList<MealModel> ingres) {
+        MealModel[] mealArray = ingres.toArray(new MealModel[0]);
+        SearchFragmentDirections.ActionSearchFragmentToSearchResultFragment action = SearchFragmentDirections
+                .actionSearchFragmentToSearchResultFragment(mealArray);
+        Navigation.findNavController(getView()).navigate(action);
+    }
+
+    @Override
     public void getIngredients(ArrayList<IngredientModel> ingredients) {
         this.ingredients = ingredients;
     }
@@ -239,5 +247,10 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
     @Override
     public void onCategoryClick(CatModel catModel) {
         presenter.getRemoteDataByCategory(catModel.getStrCategory());
+    }
+
+    @Override
+    public void onIngredientsClick(IngredientModel ingredientModel) {
+        presenter.getRemoteDataByIngredients(ingredientModel.getStrIngredient());
     }
 }

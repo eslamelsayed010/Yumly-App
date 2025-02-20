@@ -42,7 +42,7 @@ public class GridAdapterIngredients extends RecyclerView.Adapter<GridAdapterIngr
         IngredientModel ingredientModel = ingredients.get(position);
         holder.textView.setText(ingredientModel.getStrIngredient());
         Glide.with(context).load("https://www.themealdb.com/images/ingredients/"+ingredientModel.getStrIngredient()+".png").into(holder.imageView);
-        //holder.linearLayout.setOnClickListener(v-> listener.onCategoryClick(ingredientModel));
+        holder.linearLayout.setOnClickListener(v-> listener.onIngredientsClick(ingredientModel));
     }
 
     @Override

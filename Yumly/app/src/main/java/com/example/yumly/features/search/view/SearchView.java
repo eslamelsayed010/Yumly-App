@@ -11,6 +11,7 @@ public interface SearchView {
     void getData(ArrayList<CountryModel> countries);
     void getDataByCountry(ArrayList<MealModel> countries);
     void getDataByCategory(ArrayList<MealModel> meals);
+    void getDataByIngredients(ArrayList<MealModel> meals);
     void getIngredients(ArrayList<IngredientModel> ingredients);
     void getCategory(ArrayList<CatModel> cats);
     void onError(String msg);
