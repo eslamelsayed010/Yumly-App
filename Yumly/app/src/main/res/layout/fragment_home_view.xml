@@ -74,17 +74,16 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <View
-            android:layout_width="10dp"
-            android:layout_height="15dp" />
-
         <androidx.cardview.widget.CardView
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:elevation="10dp"
-            app:cardCornerRadius="12dp">
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@android:color/white">
 
             <ImageView
+                android:background="@color/gray_lighter"
                 android:id="@+id/meal_of_the_day_image_id"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -102,10 +101,6 @@
             android:text="@string/popular_recipes"
             android:textSize="20sp"
             android:textStyle="bold" />
-
-        <View
-            android:layout_width="10dp"
-            android:layout_height="15dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_id"
