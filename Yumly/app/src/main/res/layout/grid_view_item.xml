@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/grid_view_id">
+    android:id="@+id/grid_view_id"
+    app:cardCornerRadius="15dp"
+    android:layout_marginBottom="15dp"
+    android:backgroundTint="@color/gray_lighter">
+
     <LinearLayout
         android:id="@+id/home_grid_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Image Card -->
         <androidx.cardview.widget.CardView
-            android:layout_marginHorizontal="10dp"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:elevation="15dp"
-            app:cardCornerRadius="12dp"
-            tools:ignore="MissingConstraints">
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginBottom="10dp"
+            android:elevation="10dp"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@color/white">
+
             <ImageView
                 android:id="@+id/grid_image_id"
                 android:layout_width="match_parent"
@@ -29,17 +37,42 @@
                 android:src="@drawable/food_image" />
 
         </androidx.cardview.widget.CardView>
+
+        <!-- Text Content -->
         <TextView
-            android:layout_marginLeft="10dp"
             android:id="@+id/grid_txt_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/roasted_chicken"
-            android:textSize="17sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/primaryColor"
+            android:paddingStart="8dp"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/grid_desc_id"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-        <View
-            android:layout_width="10dp"
-            android:layout_height="10dp"/>
+            android:layout_height="wrap_content"
+            android:text="@string/egypt"
+            android:textSize="16sp"
+            android:maxLines="2"
+            android:textColor="@color/gray"
+            android:paddingStart="8dp"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/grid_tag_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/meat_casserole"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/primaryColor2"
+            android:paddingStart="8dp"
+            android:paddingBottom="4dp"
+            android:textAlignment="textStart"/>
+
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

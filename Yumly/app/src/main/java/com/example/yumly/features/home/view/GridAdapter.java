@@ -40,6 +40,8 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MealModel meal = meals.get(position);
         holder.textView.setText(meal.getStrMeal());
+        holder.textView2.setText(meal.getStrInstructions());
+        holder.textView3.setText(meal.getStrCategory());
         Glide.with(context).load(meal.getStrMealThumb()).into(holder.imageView);
         holder.linearLayout.setOnClickListener(v -> listener.onClick(meal));
     }
@@ -52,12 +54,16 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textView;
+        TextView textView2;
+        TextView textView3;
         LinearLayout linearLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.grid_image_id);
             textView = itemView.findViewById(R.id.grid_txt_id);
+            textView2 = itemView.findViewById(R.id.grid_desc_id);
+            textView3 = itemView.findViewById(R.id.grid_tag_id);
             linearLayout = itemView.findViewById(R.id.home_grid_item);
         }
     }
