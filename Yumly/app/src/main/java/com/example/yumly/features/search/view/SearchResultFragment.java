@@ -11,18 +11,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Toast;
 import com.example.yumly.R;
+import com.example.yumly.core.local.MealsLocalDataSource;
 import com.example.yumly.core.models.MealModel;
+import com.example.yumly.core.remote.MealRemoteDataSource;
+import com.example.yumly.core.repo.MealsRepository;
 import com.example.yumly.databinding.FragmentSearchResultBinding;
+import com.example.yumly.features.home.presenter.HomePresenter;
+import com.example.yumly.features.home.view.HomeViewDirections;
+import com.example.yumly.features.home.view.MyHomeView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class SearchResultFragment extends Fragment {
+public class SearchResultFragment extends Fragment implements OnSearchResultClickListener, MyHomeView {
 
     FragmentSearchResultBinding binding;
     ArrayList<MealModel> meals;
+    HomePresenter presenter;
 
     public SearchResultFragment() {}
 
@@ -32,7 +39,7 @@ public class SearchResultFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSearchResultBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -44,6 +51,7 @@ public class SearchResultFragment extends Fragment {
         binding.arrowBackId.setOnClickListener(v -> arrowBackOnClick());
         initMeal();
         initRecycleView();
+        initPresenter();
     }
 
     private void arrowBackOnClick() {
@@ -63,9 +71,42 @@ public class SearchResultFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.recyclerViewId.setLayoutManager(linearLayoutManager);
-        SearchResultAdapter myAdapter = new SearchResultAdapter(getContext(), meals);
+        SearchResultAdapter myAdapter = new SearchResultAdapter(getContext(), meals ,this);
         binding.recyclerViewId.setAdapter(myAdapter);
     }
 
+    private void initPresenter() {
+        presenter = new HomePresenter(this,
+                MealsRepository.getInstance(MealsLocalDataSource.getInstance(requireContext()),
+                        MealRemoteDataSource.getInstance())
+        );
+    }
 
+    @Override
+    public void onClick(MealModel mealModel) {
+        presenter.getMealDetails(mealModel.getIdMeal());
+    }
+
+    @Override
+    public void getData(ArrayList<MealModel> meals) {
+
+    }
+
+    @Override
+    public void getRandomData(ArrayList<MealModel> meals) {
+
+    }
+
+    @Override
+    public void getMealDetails(ArrayList<MealModel> meal) {
+        MealModel[] mealArray = meal.toArray(new MealModel[0]);
+        SearchResultFragmentDirections.ActionSearchResultFragmentToDetailsFragment action = SearchResultFragmentDirections
+                .actionSearchResultFragmentToDetailsFragment(mealArray);
+        Navigation.findNavController(getView()).navigate(action);
+    }
+
+    @Override
+    public void onError(String msg) {
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+    }
 }

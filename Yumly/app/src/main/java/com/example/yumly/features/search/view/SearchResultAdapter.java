@@ -6,11 +6,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.yumly.R;
@@ -22,14 +21,15 @@ public class SearchResultAdapter extends RecyclerView.Adapter<ViewHolder> {
     private final Context context;
     private ArrayList<MealModel> meals;
     private static final String TAG = "MyAdapter";
-    private OnItemClickListener onItemClickListener;
-    String textBtn;
+    private OnSearchResultClickListener listener;
 
     public SearchResultAdapter(Context context,
-                               ArrayList<MealModel> meals
+                               ArrayList<MealModel> meals,
+                               OnSearchResultClickListener listener
     ) {
         this.context = context;
         this.meals = meals;
+        this.listener = listener;
     }
 
     @NonNull
@@ -47,6 +47,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int index) {
         holder.titleTxt.setText(meals.get(index).getStrMeal());
         Glide.with(context).load(meals.get(index).getStrMealThumb()).into(holder.imageView);
+        holder.linearLayout.setOnClickListener(v -> listener.onClick(meals.get(index)));
     }
 
     @Override
@@ -58,23 +59,20 @@ public class SearchResultAdapter extends RecyclerView.Adapter<ViewHolder> {
         this.meals = meals;
     }
 
-    public void setTextBtn(String textBtn) {
-        this.textBtn = textBtn;
-    }
-
 }
 
 class ViewHolder extends RecyclerView.ViewHolder {
     public TextView titleTxt;
     public ImageView imageView;
     public View layout;
-
+    public LinearLayout linearLayout;
 
     public ViewHolder(View itemView) {
         super(itemView);
         layout = itemView;
         titleTxt = itemView.findViewById(R.id.meal_title_search_result_id);
         imageView = itemView.findViewById(R.id.image_result_id);
+        linearLayout = itemView.findViewById(R.id.item_search_result_id);
     }
 
 }
