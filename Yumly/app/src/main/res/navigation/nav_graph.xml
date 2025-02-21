@@ -64,6 +64,9 @@
         <action
             android:id="@+id/action_homeView_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeView_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -93,6 +96,15 @@
             app:argType="com.example.yumly.core.models.MealModel[]" />
         <action
             android:id="@+id/action_searchResultFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.yumly.features.favorite.view.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
 </navigation>
