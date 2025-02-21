@@ -16,6 +16,9 @@
         android:layout_gravity="start"
         android:src="@drawable/arrow_back"
         app:tint="@color/black" />
+    <View
+        android:layout_width="10dp"
+        android:layout_height="10dp"/>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/search_text_field_id"
         android:layout_width="match_parent"

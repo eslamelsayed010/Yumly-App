@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -34,44 +31,28 @@ public class MealRemoteDataSource {
         return mealRemoteDataSource;
     }
 
+    @SuppressLint("CheckResult")
     public void getResponse(NetworkCallback callback) {
-        Call<MealResponse> response = service.getAllProducts();
-        response.enqueue(new Callback<MealResponse>() {
-            @Override
-            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
-                if (response.isSuccessful()) {
-                    meals = response.body().getMeals();
-                    callback.onSuccess(meals);
-                } else {
-                    callback.onFailure("NO RESPONSE");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MealResponse> call, Throwable throwable) {
-                callback.onFailure("Failure TO GET DATA");
-            }
-        });
+        service.getAllProducts()
+                .subscribeOn(Schedulers.io())
+                .map(response -> response.getMeals())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        meals -> callback.onSuccess(meals),
+                        error -> callback.onFailure(error.getMessage())
+                );
     }
 
+    @SuppressLint("CheckResult")
     public void getRandomResponse(NetworkCallback callback) {
-        Call<MealResponse> response = service.getRandomMeal();
-        response.enqueue(new Callback<MealResponse>() {
-            @Override
-            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
-                if (response.isSuccessful()) {
-                    meals = response.body().getMeals();
-                    callback.onSuccessRandom(meals);
-                } else {
-                    callback.onFailure("NO RESPONSE");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MealResponse> call, Throwable throwable) {
-                callback.onFailure("Failure TO GET DATA");
-            }
-        });
+        service.getRandomMeal()
+                .subscribeOn(Schedulers.io())
+                .map(response -> response.getMeals())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        meals -> callback.onSuccessRandom(meals),
+                        error -> callback.onFailure(error.getMessage())
+                );
     }
 
     @SuppressLint("CheckResult")
@@ -106,6 +87,18 @@ public class MealRemoteDataSource {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         meals -> callback.onSuccessGetMealByCategory(meals),
+                        error -> callback.onFailure(error.getMessage())
+                );
+    }
+
+    @SuppressLint("CheckResult")
+    public void getMealDetails(NetworkCallback callback, String id) {
+        service.getMealDetails(id)
+                .subscribeOn(Schedulers.io())
+                .map(response -> response.getMeals())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        meals -> callback.onSuccessGetMealDetails(meals),
                         error -> callback.onFailure(error.getMessage())
                 );
     }

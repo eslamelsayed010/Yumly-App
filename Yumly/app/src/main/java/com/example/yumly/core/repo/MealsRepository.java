@@ -1,12 +1,9 @@
 package com.example.yumly.core.repo;
 
-import androidx.lifecycle.LiveData;
 import com.example.yumly.core.local.MealsLocalDataSource;
 import com.example.yumly.core.remote.MealRemoteDataSource;
 import com.example.yumly.core.models.MealModel;
 import com.example.yumly.core.remote.NetworkCallback;
-
-import java.util.List;
 
 public class MealsRepository {
     MealsLocalDataSource localDataSource;
@@ -28,10 +25,6 @@ public class MealsRepository {
         return mealsRepository;
     }
 
-    public LiveData<List<MealModel>> getLocalProduct(){
-        return localDataSource.getAllData();
-    }
-
 
     public void addMeal(MealModel productModel){
         localDataSource.insert(productModel);
@@ -42,9 +35,16 @@ public class MealsRepository {
     }
 
 
-    public void getRemoteData(NetworkCallback networkCallback){
+    public void getAllMeals(NetworkCallback networkCallback){
         remoteDataSource.getResponse(networkCallback);
+    }
+
+    public void getRandomMeal(NetworkCallback networkCallback){
         remoteDataSource.getRandomResponse(networkCallback);
+    }
+
+    public void getMealDetails(NetworkCallback networkCallback, String id){
+        remoteDataSource.getMealDetails(networkCallback, id);
     }
 
 }

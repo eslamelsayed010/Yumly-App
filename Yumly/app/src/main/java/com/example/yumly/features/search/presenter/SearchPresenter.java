@@ -74,6 +74,11 @@ public class SearchPresenter implements NetworkCallback {
         view.getIngredients(ingredients);
     }
 
+    @Override
+    public void onSuccessGetMealDetails(ArrayList<MealModel> models) {
+
+    }
+
     public void onFailure(String errorMessage) {
         view.onError(errorMessage);
     }

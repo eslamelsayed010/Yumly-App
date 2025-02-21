@@ -38,6 +38,15 @@
     <string name="egypt">Egypt</string>
     <string name="result">Result</string>
     <string name="beef_burger">Beef Burger</string>
+    <string name="recipe">RECIPE</string>
+    <string name="sweet_potato_quinoa_patties">Sweet Potato Quinoa Patties</string>
+    <string name="preheat_oven_to_350_f_spray_a_9x13_inch_baking_pan_with_non_stick_spray_combine_soy_sauce_cup_water_brown_sugar_ginger_and_garlic_in_a_small_saucepan_and_cover_bring_to_a_boil_over_medium_heat_remove_lid_and_cook_for_one_minute_once_boiling_meanwhile_stir_together_the_corn_starch_and_2_tablespoons_of_water_in_a_separate_dish_until_smooth_once_sauce_is_boiling_add_mixture_to_the_saucepan_and_stir_to_combine_cook_until_the_sauce_starts_to_thicken_then_remove_from_heat_place_the_chicken_breasts_in_the_prepared_pan_pour_one_cup_of_the_sauce_over_top_of_chicken_place_chicken_in_oven_and_bake_35_minutes_or_until_cooked_through_remove_from_oven_and_shred_chicken_in_the_dish_using_two_forks_meanwhile_steam_or_cook_the_vegetables_according_to_package_directions_add_the_cooked_vegetables_and_rice_to_the_casserole_dish_with_the_chicken_add_most_of_the_remaining_sauce_reserving_a_bit_to_drizzle_over_the_top_when_serving_gently_toss_everything_together_in_the_casserole_dish_until_combined_return_to_oven_and_cook_15_minutes_remove_from_oven_and_let_stand_5_minutes_before_serving_drizzle_each_serving_with_remaining_sauce_enjoy">Preheat oven to 350° F. Spray a 9x13-inch baking pan with non-stick spray. Combine soy sauce, ½ cup water, brown sugar, ginger and garlic in a small saucepan and cover. Bring to a boil over medium heat. Remove lid and cook for one minute once boiling. Meanwhile, stir together the corn starch and 2 tablespoons of water in a separate dish until smooth. Once sauce is boiling, add mixture to the saucepan and stir to combine. Cook until the sauce starts to thicken then remove from heat. Place the chicken breasts in the prepared pan. Pour one cup of the sauce over top of chicken. Place chicken in oven and bake 35 minutes or until cooked through. Remove from oven and shred chicken in the dish using two forks. *Meanwhile, steam or cook the vegetables according to package directions. Add the cooked vegetables and rice to the casserole dish with the chicken. Add most of the remaining sauce, reserving a bit to drizzle over the top when serving. Gently toss everything together in the casserole dish until combined. Return to oven and cook 15 minutes. Remove from oven and let stand 5 minutes before serving. Drizzle each serving with remaining sauce. Enjoy!</string>
+    <string name="description">Description</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="video">Video</string>
+    <string name="youtube">Youtube</string>
+    <string name="soy_sauce">soy sauce</string>
+    <string name="_3_4_cup">3/4 cup</string>
 
 
 </resources>

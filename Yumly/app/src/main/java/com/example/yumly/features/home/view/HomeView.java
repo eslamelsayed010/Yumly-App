@@ -5,12 +5,16 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+import com.example.yumly.R;
 import com.example.yumly.core.local.MealsLocalDataSource;
 import com.example.yumly.core.remote.MealRemoteDataSource;
 import com.example.yumly.core.repo.MealsRepository;
@@ -18,15 +22,15 @@ import com.example.yumly.core.models.MealModel;
 import com.example.yumly.databinding.FragmentHomeViewBinding;
 import com.example.yumly.core.models.UserModel;
 import com.example.yumly.features.home.presenter.HomePresenter;
-
 import java.util.ArrayList;
 
 
-public class HomeView extends Fragment implements MyHomeView{
+public class HomeView extends Fragment implements MyHomeView, OnItemClickListenerHome{
 
     FragmentHomeViewBinding binding;
     UserModel userModel;
     ArrayList<MealModel> meals = new ArrayList<>();
+    ArrayList<MealModel> randomMeals = new ArrayList<>();
     HomePresenter presenter;
 
     public HomeView() {}
@@ -45,9 +49,15 @@ public class HomeView extends Fragment implements MyHomeView{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        handleOnClickListener();
         initGridView();
         initPresenter();
         closeApp();
+    }
+
+    void handleOnClickListener(){
+        binding.searchContainerId.setOnClickListener(v -> Navigation.findNavController(getView()).navigate(R.id.action_homeView_to_searchFragment));
+        binding.mealOfTheDayImageId.setOnClickListener(v-> getMealDetails(randomMeals));
     }
 
     private void initPresenter() {
@@ -55,7 +65,8 @@ public class HomeView extends Fragment implements MyHomeView{
                 MealsRepository.getInstance(MealsLocalDataSource.getInstance(requireContext()),
                         MealRemoteDataSource.getInstance())
         );
-        presenter.getData();
+        presenter.getAllMeals();
+        presenter.getRandomMeal();
     }
 
     private void initGridView() {
@@ -75,18 +86,31 @@ public class HomeView extends Fragment implements MyHomeView{
     @Override
     public void getData(ArrayList<MealModel> meals) {
         this.meals = meals;
-        GridAdapter gridAdapter = new GridAdapter(requireContext(), meals);
+        GridAdapter gridAdapter = new GridAdapter(requireContext(), meals, this);
         binding.recyclerViewId.setAdapter(gridAdapter);
     }
 
     @Override
     public void getRandomData(ArrayList<MealModel> meals) {
+        randomMeals = meals;
         Glide.with(getContext()).load(meals.get(0).getStrMealThumb()).into(binding.mealOfTheDayImageId);
+    }
+
+    @Override
+    public void getMealDetails(ArrayList<MealModel> meal) {
+        MealModel[] mealArray = meal.toArray(new MealModel[0]);
+        HomeViewDirections.ActionHomeViewToDetailsFragment action = HomeViewDirections.actionHomeViewToDetailsFragment(mealArray);
+        Navigation.findNavController(getView()).navigate(action);
     }
 
     @Override
     public void onError(String msg) {
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(MealModel mealModel) {
+        presenter.getMealDetails(mealModel.getIdMeal());
     }
 }
 

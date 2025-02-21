@@ -8,10 +8,10 @@ import retrofit2.http.Query;
 public interface MealServices {
 
     @GET("/api/json/v1/1/search.php?s=")
-    Call<MealResponse> getAllProducts();
+    Single<MealResponse> getAllProducts();
 
     @GET("/api/json/v1/1/random.php")
-    Call<MealResponse> getRandomMeal();
+    Single<MealResponse> getRandomMeal();
 
     @GET("/api/json/v1/1/filter.php")
     Single<MealResponse> getMealByCountry(@Query("a") String country);
@@ -21,6 +21,9 @@ public interface MealServices {
 
     @GET("/api/json/v1/1/filter.php")
     Single<MealResponse> getMealByIngredients(@Query("i") String cat);
+
+    @GET("/api/json/v1/1/lookup.php")
+    Single<MealResponse> getMealDetails(@Query("i") String id);
 
     @GET("/api/json/v1/1/categories.php")
     Single<MealResponse> getCategory();

@@ -19,8 +19,16 @@ public class HomePresenter implements NetworkCallback {
         this.repo = repo;
     }
 
-    public void getData(){
-        repo.getRemoteData(this);
+    public void getAllMeals(){
+        repo.getAllMeals(this);
+    }
+
+    public void getRandomMeal(){
+        repo.getRandomMeal(this);
+    }
+
+    public void getMealDetails(String id){
+        repo.getMealDetails(this, id);
     }
 
     public void addToFav(MealModel mealModel){
@@ -65,6 +73,11 @@ public class HomePresenter implements NetworkCallback {
     @Override
     public void onSuccessGetIngredients(ArrayList<IngredientModel> ingredients) {
 
+    }
+
+    @Override
+    public void onSuccessGetMealDetails(ArrayList<MealModel> models) {
+        view.getMealDetails(models);
     }
 
 }

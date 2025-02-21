@@ -8,6 +8,9 @@ import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity(tableName = "meal_table")
 public class MealModel implements Parcelable {
 
@@ -66,15 +69,95 @@ public class MealModel implements Parcelable {
     private String strIngredient19;
     @Nullable
     private String strIngredient20;
+    @Nullable
+    private String strMeasure1;
+    @Nullable
+    private String strMeasure2;
+    @Nullable
+    private String strMeasure3;
+    @Nullable
+    private String strMeasure4;
+    @Nullable
+    private String strMeasure5;
+    @Nullable
+    private String strMeasure6;
+    @Nullable
+    private String strMeasure7;
+    @Nullable
+    private String strMeasure8;
+    @Nullable
+    private String strMeasure9;
+    @Nullable
+    private String strMeasure10;
+    @Nullable
+    private String strMeasure11;
+    @Nullable
+    private String strMeasure12;
+    @Nullable
+    private String strMeasure13;
+    @Nullable
+    private String strMeasure14;
+    @Nullable
+    private String strMeasure15;
+    @Nullable
+    private String strMeasure16;
+    @Nullable
+    private String strMeasure17;
+    @Nullable
+    private String strMeasure18;
+    @Nullable
+    private String strMeasure19;
+    @Nullable
+    private String strMeasure20;
 
-    public MealModel(String idMeal, String strMeal, String strCategory, String strArea,
-                String strInstructions, String strMealThumb, String strYoutube,
-                String strIngredient1, String strIngredient2, String strIngredient3,
-                String strIngredient4, String strIngredient5, String strIngredient6, String strIngredient7,
-                String strIngredient8, String strIngredient9, String strIngredient10, String strIngredient11,
-                String strIngredient12, String strIngredient13, String strIngredient14, String strIngredient15,
-                String strIngredient16, String strIngredient17, String strIngredient18, String strIngredient19,
-                String strIngredient20) {
+    public MealModel(String idMeal,
+                     String strMeal,
+                     String strCategory,
+                     String strArea,
+                     String strInstructions,
+                     String strMealThumb,
+                     String strYoutube,
+                     String strIngredient1,
+                     String strIngredient2,
+                     String strIngredient3,
+                     String strIngredient4,
+                     String strIngredient5,
+                     String strIngredient6,
+                     String strIngredient7,
+                     String strIngredient8,
+                     String strIngredient9,
+                     String strIngredient10,
+                     String strIngredient11,
+                     String strIngredient12,
+                     String strIngredient13,
+                     String strIngredient14,
+                     String strIngredient15,
+                     String strIngredient16,
+                     String strIngredient17,
+                     String strIngredient18,
+                     String strIngredient19,
+                     String strIngredient20,
+                     String strMeasure20,
+                     String strMeasure19,
+                     String strMeasure18,
+                     String strMeasure17,
+                     String strMeasure16,
+                     String strMeasure15,
+                     String strMeasure14,
+                     String strMeasure13,
+                     String strMeasure12,
+                     String strMeasure11,
+                     String strMeasure10,
+                     String strMeasure9,
+                     String strMeasure8,
+                     String strMeasure7,
+                     String strMeasure6,
+                     String strMeasure5,
+                     String strMeasure4,
+                     String strMeasure3,
+                     String strMeasure2,
+                     String strMeasure1
+    ) {
         this.idMeal = idMeal;
         this.strMeal = strMeal;
         this.strCategory = strCategory;
@@ -102,7 +185,28 @@ public class MealModel implements Parcelable {
         this.strIngredient18 = strIngredient18;
         this.strIngredient19 = strIngredient19;
         this.strIngredient20 = strIngredient20;
+        this.strMeasure20 = strMeasure20;
+        this.strMeasure19 = strMeasure19;
+        this.strMeasure18 = strMeasure18;
+        this.strMeasure17 = strMeasure17;
+        this.strMeasure16 = strMeasure16;
+        this.strMeasure15 = strMeasure15;
+        this.strMeasure14 = strMeasure14;
+        this.strMeasure13 = strMeasure13;
+        this.strMeasure12 = strMeasure12;
+        this.strMeasure11 = strMeasure11;
+        this.strMeasure10 = strMeasure10;
+        this.strMeasure9 = strMeasure9;
+        this.strMeasure8 = strMeasure8;
+        this.strMeasure7 = strMeasure7;
+        this.strMeasure6 = strMeasure6;
+        this.strMeasure5 = strMeasure5;
+        this.strMeasure4 = strMeasure4;
+        this.strMeasure3 = strMeasure3;
+        this.strMeasure2 = strMeasure2;
+        this.strMeasure1 = strMeasure1;
     }
+
 
     protected MealModel(Parcel in) {
         idMeal = in.readString();
@@ -132,6 +236,26 @@ public class MealModel implements Parcelable {
         strIngredient18 = in.readString();
         strIngredient19 = in.readString();
         strIngredient20 = in.readString();
+        strMeasure20 = in.readString();
+        strMeasure19 = in.readString();
+        strMeasure18 = in.readString();
+        strMeasure17 = in.readString();
+        strMeasure16 = in.readString();
+        strMeasure15 = in.readString();
+        strMeasure14 = in.readString();
+        strMeasure13 = in.readString();
+        strMeasure12 = in.readString();
+        strMeasure11 = in.readString();
+        strMeasure10 = in.readString();
+        strMeasure9 = in.readString();
+        strMeasure8 = in.readString();
+        strMeasure7 = in.readString();
+        strMeasure6 = in.readString();
+        strMeasure5 = in.readString();
+        strMeasure4 = in.readString();
+        strMeasure3 = in.readString();
+        strMeasure2 = in.readString();
+        strMeasure1 = in.readString();
     }
 
     public static final Creator<MealModel> CREATOR = new Creator<MealModel>() {
@@ -363,38 +487,190 @@ public class MealModel implements Parcelable {
         this.strIngredient20 = strIngredient20;
     }
 
+    @Nullable
+    public String getStrMeasure2() {
+        return strMeasure2;
+    }
+
+    public void setStrMeasure2(@Nullable String strMeasure2) {
+        this.strMeasure2 = strMeasure2;
+    }
+
+    @Nullable
+    public String getStrMeasure1() {
+        return strMeasure1;
+    }
+
+    public void setStrMeasure1(@Nullable String strMeasure1) {
+        this.strMeasure1 = strMeasure1;
+    }
+
+    @Nullable
+    public String getStrMeasure3() {
+        return strMeasure3;
+    }
+
+    public void setStrMeasure3(@Nullable String strMeasure3) {
+        this.strMeasure3 = strMeasure3;
+    }
+
+    @Nullable
+    public String getStrMeasure4() {
+        return strMeasure4;
+    }
+
+    public void setStrMeasure4(@Nullable String strMeasure4) {
+        this.strMeasure4 = strMeasure4;
+    }
+
+    @Nullable
+    public String getStrMeasure5() {
+        return strMeasure5;
+    }
+
+    public void setStrMeasure5(@Nullable String strMeasure5) {
+        this.strMeasure5 = strMeasure5;
+    }
+
+    @Nullable
+    public String getStrMeasure7() {
+        return strMeasure7;
+    }
+
+    public void setStrMeasure7(@Nullable String strMeasure7) {
+        this.strMeasure7 = strMeasure7;
+    }
+
+    @Nullable
+    public String getStrMeasure6() {
+        return strMeasure6;
+    }
+
+    public void setStrMeasure6(@Nullable String strMeasure6) {
+        this.strMeasure6 = strMeasure6;
+    }
+
+    @Nullable
+    public String getStrMeasure8() {
+        return strMeasure8;
+    }
+
+    public void setStrMeasure8(@Nullable String strMeasure8) {
+        this.strMeasure8 = strMeasure8;
+    }
+
+    @Nullable
+    public String getStrMeasure10() {
+        return strMeasure10;
+    }
+
+    public void setStrMeasure10(@Nullable String strMeasure10) {
+        this.strMeasure10 = strMeasure10;
+    }
+
+    @Nullable
+    public String getStrMeasure9() {
+        return strMeasure9;
+    }
+
+    public void setStrMeasure9(@Nullable String strMeasure9) {
+        this.strMeasure9 = strMeasure9;
+    }
+
+    @Nullable
+    public String getStrMeasure11() {
+        return strMeasure11;
+    }
+
+    public void setStrMeasure11(@Nullable String strMeasure11) {
+        this.strMeasure11 = strMeasure11;
+    }
+
+    @Nullable
+    public String getStrMeasure12() {
+        return strMeasure12;
+    }
+
+    public void setStrMeasure12(@Nullable String strMeasure12) {
+        this.strMeasure12 = strMeasure12;
+    }
+
+    @Nullable
+    public String getStrMeasure13() {
+        return strMeasure13;
+    }
+
+    public void setStrMeasure13(@Nullable String strMeasure13) {
+        this.strMeasure13 = strMeasure13;
+    }
+
+    @Nullable
+    public String getStrMeasure14() {
+        return strMeasure14;
+    }
+
+    public void setStrMeasure14(@Nullable String strMeasure14) {
+        this.strMeasure14 = strMeasure14;
+    }
+
+    @Nullable
+    public String getStrMeasure15() {
+        return strMeasure15;
+    }
+
+    public void setStrMeasure15(@Nullable String strMeasure15) {
+        this.strMeasure15 = strMeasure15;
+    }
+
+    @Nullable
+    public String getStrMeasure16() {
+        return strMeasure16;
+    }
+
+    public void setStrMeasure16(@Nullable String strMeasure16) {
+        this.strMeasure16 = strMeasure16;
+    }
+
+    @Nullable
+    public String getStrMeasure17() {
+        return strMeasure17;
+    }
+
+    public void setStrMeasure17(@Nullable String strMeasure17) {
+        this.strMeasure17 = strMeasure17;
+    }
+
+    @Nullable
+    public String getStrMeasure18() {
+        return strMeasure18;
+    }
+
+    public void setStrMeasure18(@Nullable String strMeasure18) {
+        this.strMeasure18 = strMeasure18;
+    }
+
+    @Nullable
+    public String getStrMeasure19() {
+        return strMeasure19;
+    }
+
+    public void setStrMeasure19(@Nullable String strMeasure19) {
+        this.strMeasure19 = strMeasure19;
+    }
+
+    @Nullable
+    public String getStrMeasure20() {
+        return strMeasure20;
+    }
+
+    public void setStrMeasure20(@Nullable String strMeasure20) {
+        this.strMeasure20 = strMeasure20;
+    }
+
     @NonNull
     @Override
     public String toString() {
-        return "Meal{" +
-                "idMeal='" + idMeal + '\'' +
-                ", strMeal='" + strMeal + '\'' +
-                ", strCategory='" + strCategory + '\'' +
-                ", strArea='" + strArea + '\'' +
-                ", strInstructions='" + strInstructions + '\'' +
-                ", strMealThumb='" + strMealThumb + '\'' +
-                ", strYoutube='" + strYoutube + '\'' +
-                ", strIngredient1='" + strIngredient1 + '\'' +
-                ", strIngredient2='" + strIngredient2 + '\'' +
-                ", strIngredient3='" + strIngredient3 + '\'' +
-                ", strIngredient4='" + strIngredient4 + '\'' +
-                ", strIngredient5='" + strIngredient5 + '\'' +
-                ", strIngredient6='" + strIngredient6 + '\'' +
-                ", strIngredient7='" + strIngredient7 + '\'' +
-                ", strIngredient8='" + strIngredient8 + '\'' +
-                ", strIngredient9='" + strIngredient9 + '\'' +
-                ", strIngredient10='" + strIngredient10 + '\'' +
-                ", strIngredient11='" + strIngredient11 + '\'' +
-                ", strIngredient12='" + strIngredient12 + '\'' +
-                ", strIngredient13='" + strIngredient13 + '\'' +
-                ", strIngredient14='" + strIngredient14 + '\'' +
-                ", strIngredient15='" + strIngredient15 + '\'' +
-                ", strIngredient16='" + strIngredient16 + '\'' +
-                ", strIngredient17='" + strIngredient17 + '\'' +
-                ", strIngredient18='" + strIngredient18 + '\'' +
-                ", strIngredient19='" + strIngredient19 + '\'' +
-                ", strIngredient20='" + strIngredient20 + '\'' +
-                '}';
+        return "Meal{" + "idMeal='" + idMeal + '\'' + ", strMeal='" + strMeal + '\'' + ", strCategory='" + strCategory + '\'' + ", strArea='" + strArea + '\'' + ", strInstructions='" + strInstructions + '\'' + ", strMealThumb='" + strMealThumb + '\'' + ", strYoutube='" + strYoutube + '\'' + ", strIngredient1='" + strIngredient1 + '\'' + ", strIngredient2='" + strIngredient2 + '\'' + ", strIngredient3='" + strIngredient3 + '\'' + ", strIngredient4='" + strIngredient4 + '\'' + ", strIngredient5='" + strIngredient5 + '\'' + ", strIngredient6='" + strIngredient6 + '\'' + ", strIngredient7='" + strIngredient7 + '\'' + ", strIngredient8='" + strIngredient8 + '\'' + ", strIngredient9='" + strIngredient9 + '\'' + ", strIngredient10='" + strIngredient10 + '\'' + ", strIngredient11='" + strIngredient11 + '\'' + ", strIngredient12='" + strIngredient12 + '\'' + ", strIngredient13='" + strIngredient13 + '\'' + ", strIngredient14='" + strIngredient14 + '\'' + ", strIngredient15='" + strIngredient15 + '\'' + ", strIngredient16='" + strIngredient16 + '\'' + ", strIngredient17='" + strIngredient17 + '\'' + ", strIngredient18='" + strIngredient18 + '\'' + ", strIngredient19='" + strIngredient19 + '\'' + ", strIngredient20='" + strIngredient20 + '\'' + '}';
     }
 
     @Override
@@ -431,5 +707,42 @@ public class MealModel implements Parcelable {
         dest.writeString(strIngredient18);
         dest.writeString(strIngredient19);
         dest.writeString(strIngredient20);
+        dest.writeString(strMeasure1);
+        dest.writeString(strMeasure2);
+        dest.writeString(strMeasure3);
+        dest.writeString(strMeasure4);
+        dest.writeString(strMeasure5);
+        dest.writeString(strMeasure6);
+        dest.writeString(strMeasure7);
+        dest.writeString(strMeasure8);
+        dest.writeString(strMeasure9);
+        dest.writeString(strMeasure10);
+        dest.writeString(strMeasure11);
+        dest.writeString(strMeasure12);
+        dest.writeString(strMeasure13);
+        dest.writeString(strMeasure14);
+        dest.writeString(strMeasure15);
+        dest.writeString(strMeasure16);
+        dest.writeString(strMeasure17);
+        dest.writeString(strMeasure18);
+        dest.writeString(strMeasure19);
+        dest.writeString(strMeasure20);
+    }
+
+    public List<IngredientDetailsModel> getIngredientList() {
+        List<IngredientDetailsModel> ingredients = new ArrayList<>();
+        for (int i = 1; i <= 20; i++) {
+            try {
+                String ingredient = (String) this.getClass().getDeclaredMethod("getStrIngredient" + i).invoke(this);
+                String measure = (String) this.getClass().getDeclaredMethod("getStrMeasure" + i).invoke(this);
+
+                if (ingredient != null && !ingredient.trim().isEmpty() && measure != null && !measure.trim().isEmpty()) {
+                    ingredients.add(new IngredientDetailsModel(ingredient, measure));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ingredients;
     }
 }

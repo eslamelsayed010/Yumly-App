@@ -14,4 +14,5 @@ public interface NetworkCallback {
     void onSuccessGetMealByCategory(ArrayList<MealModel> meals);
     void onSuccessGetMealByIngredients(ArrayList<MealModel> meals);
     void onSuccessGetIngredients(ArrayList<IngredientModel> ingredients);
+    void onSuccessGetMealDetails(ArrayList<MealModel> meals);
 }

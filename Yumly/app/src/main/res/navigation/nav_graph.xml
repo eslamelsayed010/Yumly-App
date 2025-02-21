@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/searchFragment">
+    app:startDestination="@id/splashView">
 
     <fragment
         android:id="@+id/authMenu"
@@ -69,7 +69,11 @@
         android:id="@+id/detailsFragment"
         android:name="com.example.yumly.features.details.view.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="meals"
+            app:argType="com.example.yumly.core.models.MealModel[]" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.yumly.features.search.view.SearchFragment"
@@ -81,7 +85,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchResultFragment"
-        android:name="com.example.yumly.SearchResultFragment"
+        android:name="com.example.yumly.features.search.view.SearchResultFragment"
         android:label="fragment_search_result"
         tools:layout="@layout/fragment_search_result" >
         <argument
