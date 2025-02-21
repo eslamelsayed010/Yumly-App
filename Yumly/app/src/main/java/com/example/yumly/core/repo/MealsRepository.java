@@ -4,6 +4,9 @@ import com.example.yumly.core.local.MealsLocalDataSource;
 import com.example.yumly.core.remote.MealRemoteDataSource;
 import com.example.yumly.core.models.MealModel;
 import com.example.yumly.core.remote.NetworkCallback;
+import java.util.List;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
 
 public class MealsRepository {
     MealsLocalDataSource localDataSource;
@@ -26,12 +29,16 @@ public class MealsRepository {
     }
 
 
-    public void addMeal(MealModel productModel){
-        localDataSource.insert(productModel);
+    public Flowable<List<MealModel>> getFavMeal(){
+        return localDataSource.getAllData();
     }
 
-    public void deleteMeal(MealModel productModel){
-        localDataSource.delete(productModel);
+    public Completable addMealToFav(MealModel mealModel){
+        return localDataSource.insert(mealModel);
+    }
+
+    public Completable deleteMealFromFav(MealModel mealModel){
+        return localDataSource.delete(mealModel);
     }
 
 

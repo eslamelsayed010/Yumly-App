@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.yumly.R;
 import com.example.yumly.core.models.MealModel;
-
 import java.util.ArrayList;
 
 public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
@@ -21,7 +20,10 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     private ArrayList<MealModel> meals;
     OnItemClickListenerHome listener;
 
-    public GridAdapter(Context context, ArrayList<MealModel> meals, OnItemClickListenerHome listener) {
+    public GridAdapter(Context context,
+                       ArrayList<MealModel> meals,
+                       OnItemClickListenerHome listener
+                       ) {
         this.context = context;
         this.meals = meals;
         this.listener = listener;

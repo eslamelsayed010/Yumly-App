@@ -1,17 +1,18 @@
 package com.example.yumly.core.local;
 
 import android.content.Context;
-import androidx.lifecycle.LiveData;
 import com.example.yumly.core.local.db.AppDatabase;
 import com.example.yumly.core.local.db.DAO;
 import com.example.yumly.core.models.MealModel;
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
 public class MealsLocalDataSource {
 
     private Context context;
     private DAO dao;
-    private LiveData<List<MealModel>> data;
+    private Flowable<List<MealModel>> data;
     private static MealsLocalDataSource mealsLocalDataSource = null;
 
     private MealsLocalDataSource(Context context){
@@ -27,16 +28,16 @@ public class MealsLocalDataSource {
         return mealsLocalDataSource;
     }
 
-    public LiveData<List<MealModel>> getAllData(){
+    public Flowable<List<MealModel>> getAllData(){
         return data;
     }
 
-    public void delete(MealModel mealModel){
-        new Thread(() -> dao.deleteProduct(mealModel)).start();
+    public Completable delete(MealModel mealModel){
+        return dao.deleteProduct(mealModel);
     }
 
-    public void insert(MealModel mealModel){
-        new Thread(() -> dao.addProduct(mealModel)).start();
+    public Completable insert(MealModel mealModel){
+        return dao.addProduct(mealModel);
     }
 
 }

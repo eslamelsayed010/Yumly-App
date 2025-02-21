@@ -6,7 +6,6 @@ import com.example.yumly.core.remote.NetworkCallback;
 import com.example.yumly.core.repo.MealsRepository;
 import com.example.yumly.core.models.MealModel;
 import com.example.yumly.features.home.view.MyHomeView;
-
 import java.util.ArrayList;
 
 public class HomePresenter implements NetworkCallback {
@@ -29,10 +28,6 @@ public class HomePresenter implements NetworkCallback {
 
     public void getMealDetails(String id){
         repo.getMealDetails(this, id);
-    }
-
-    public void addToFav(MealModel mealModel){
-        repo.addMeal(mealModel);
     }
 
     @Override
@@ -79,6 +74,5 @@ public class HomePresenter implements NetworkCallback {
     public void onSuccessGetMealDetails(ArrayList<MealModel> models) {
         view.getMealDetails(models);
     }
-
 }
 

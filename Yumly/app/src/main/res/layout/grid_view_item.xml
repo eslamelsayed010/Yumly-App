@@ -27,24 +27,6 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/food_image" />
-<!--            <FrameLayout-->
-<!--                android:id="@+id/fav_btn_id"-->
-<!--                android:layout_width="30dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:layout_gravity="end"-->
-<!--                android:layout_margin="10dp"-->
-<!--                android:background="@drawable/image_with_circle_background">-->
-
-<!--           -->
-<!--            </FrameLayout>-->
-            <ImageView
-                android:layout_margin="10dp"
-                android:layout_gravity="end"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/solid_favorite"
-                app:tint="@color/white" />
 
         </androidx.cardview.widget.CardView>
         <TextView

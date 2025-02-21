@@ -90,24 +90,6 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop" />
 
-<!--            <FrameLayout-->
-<!--                android:id="@+id/fav_btn_id"-->
-<!--                android:layout_width="40dp"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:layout_gravity="end"-->
-<!--                android:layout_margin="10dp"-->
-<!--                android:background="@drawable/image_with_circle_background">-->
-
-
-<!--            </FrameLayout>-->
-            <ImageView
-                android:layout_gravity="end"
-                android:layout_margin="10dp"
-                app:tint="@color/primaryColor"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/solid_favorite" />
         </androidx.cardview.widget.CardView>
 
         <View

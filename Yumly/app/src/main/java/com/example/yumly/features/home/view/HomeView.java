@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,20 +19,19 @@ import com.example.yumly.core.remote.MealRemoteDataSource;
 import com.example.yumly.core.repo.MealsRepository;
 import com.example.yumly.core.models.MealModel;
 import com.example.yumly.databinding.FragmentHomeViewBinding;
-import com.example.yumly.core.models.UserModel;
 import com.example.yumly.features.home.presenter.HomePresenter;
 import java.util.ArrayList;
 
-
-public class HomeView extends Fragment implements MyHomeView, OnItemClickListenerHome{
+public class HomeView extends Fragment implements MyHomeView, OnItemClickListenerHome {
 
     FragmentHomeViewBinding binding;
-    UserModel userModel;
     ArrayList<MealModel> meals = new ArrayList<>();
     ArrayList<MealModel> randomMeals = new ArrayList<>();
     HomePresenter presenter;
+    GridAdapter gridAdapter;
 
-    public HomeView() {}
+    public HomeView() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,15 +47,15 @@ public class HomeView extends Fragment implements MyHomeView, OnItemClickListene
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        handleOnClickListener();
         initGridView();
         initPresenter();
+        handleOnClickListener();
         closeApp();
     }
 
-    void handleOnClickListener(){
+    void handleOnClickListener() {
         binding.searchContainerId.setOnClickListener(v -> Navigation.findNavController(getView()).navigate(R.id.action_homeView_to_searchFragment));
-        binding.mealOfTheDayImageId.setOnClickListener(v-> getMealDetails(randomMeals));
+        binding.mealOfTheDayImageId.setOnClickListener(v -> getMealDetails(randomMeals));
     }
 
     private void initPresenter() {
@@ -74,7 +72,7 @@ public class HomeView extends Fragment implements MyHomeView, OnItemClickListene
         binding.recyclerViewId.setLayoutManager(layoutManager);
     }
 
-    public void closeApp(){
+    public void closeApp() {
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -85,8 +83,9 @@ public class HomeView extends Fragment implements MyHomeView, OnItemClickListene
 
     @Override
     public void getData(ArrayList<MealModel> meals) {
+        meals.remove(0);
         this.meals = meals;
-        GridAdapter gridAdapter = new GridAdapter(requireContext(), meals, this);
+        gridAdapter = new GridAdapter(requireContext(), meals, this);
         binding.recyclerViewId.setAdapter(gridAdapter);
     }
 
@@ -106,12 +105,14 @@ public class HomeView extends Fragment implements MyHomeView, OnItemClickListene
     @Override
     public void onError(String msg) {
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+        Log.i("TAG", "onError: " + msg);
     }
 
     @Override
     public void onClick(MealModel mealModel) {
         presenter.getMealDetails(mealModel.getIdMeal());
     }
+
 }
 
 //        binding.logoutId.setOnClickListener(v -> {

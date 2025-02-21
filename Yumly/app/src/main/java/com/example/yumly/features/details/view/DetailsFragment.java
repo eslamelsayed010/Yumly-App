@@ -13,14 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.yumly.R;
+import com.example.yumly.core.local.MealsLocalDataSource;
 import com.example.yumly.core.models.IngredientDetailsModel;
 import com.example.yumly.core.models.MealModel;
+import com.example.yumly.core.remote.MealRemoteDataSource;
+import com.example.yumly.core.repo.MealsRepository;
 import com.example.yumly.databinding.FragmentDetailsBinding;
-import com.example.yumly.databinding.FragmentHomeViewBinding;
+import com.example.yumly.features.details.presenter.DetailsPresenter;
 import com.example.yumly.features.search.view.SearchResultFragmentArgs;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
@@ -33,11 +36,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DetailsFragment extends Fragment {
+public class DetailsFragment extends Fragment implements DetailsView {
 
     FragmentDetailsBinding binding;
     MealModel mealModel;
     ArrayList<IngredientDetailsModel> ingredientDetails;
+    DetailsPresenter presenter;
+    ArrayList<MealModel> mealDB = new ArrayList<>();
+    boolean isFav;
 
     public DetailsFragment() {
     }
@@ -61,7 +67,18 @@ public class DetailsFragment extends Fragment {
         initMeal();
         initItem();
         initRecycleView();
+        initPresenter();
         initYoutube();
+    }
+
+    void initPresenter() {
+        presenter = new DetailsPresenter(this,
+                MealsRepository
+                        .getInstance(MealsLocalDataSource
+                                        .getInstance(getContext()),
+                                MealRemoteDataSource
+                                        .getInstance()));
+        presenter.getMealFromDatabase();
     }
 
     void initMeal() {
@@ -79,7 +96,33 @@ public class DetailsFragment extends Fragment {
         binding.countryMealDetailsId.setText(mealModel.getStrArea());
         binding.descMealDetailsId.setText(mealModel.getStrInstructions());
         Glide.with(getContext()).load(mealModel.getStrMealThumb()).into(binding.imageViewDetailsId);
+        binding.favBtnId.setOnClickListener(v -> {
+            if (isFav) {
+                isFav = false;
+                binding.favIconId.setImageResource(R.drawable.favorite);
+                presenter.removeFromFav(mealModel);
+            } else {
+                isFav = true;
+                binding.favIconId.setImageResource(R.drawable.solid_favorite);
+                presenter.addToFav(mealModel);
+            }
+        });
     }
+
+    void initIsFav() {
+        isFav = false;
+        for (MealModel model : mealDB) {
+            if (model.getIdMeal().equals(mealModel.getIdMeal())) {
+                binding.favIconId.setImageResource(R.drawable.solid_favorite);
+                isFav = true;
+                break;
+            }
+        }
+        if (!isFav) {
+            binding.favIconId.setImageResource(R.drawable.favorite);
+        }
+    }
+
 
     void initYoutube() {
         YouTubePlayerView youTubePlayerView = binding.youtubePlayerView;
@@ -88,20 +131,31 @@ public class DetailsFragment extends Fragment {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 String videoId = getVideoKey();
-                youTubePlayer.cueVideo(videoId, 0);
+                if (videoId != null && !videoId.isEmpty()) {
+                    youTubePlayer.cueVideo(videoId, 0);
+                }
             }
         });
     }
 
     String getVideoKey() {
         String url = mealModel.getStrYoutube();
+        if (url == null || url.isEmpty()) {
+            return null; // or provide a default value
+        }
+
         URI uri;
         try {
             uri = new URI(url);
         } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            return null;
         }
+
         String query = uri.getQuery();
+        if (query == null) {
+            return null;
+        }
 
         Map<String, String> queryPairs = new HashMap<>();
         for (String param : query.split("&")) {
@@ -110,7 +164,7 @@ public class DetailsFragment extends Fragment {
                 queryPairs.put(pair[0], pair[1]);
             }
         }
-        return queryPairs.get("v");
+        return queryPairs.get("v"); // Might still return null, handle this in `initYoutube()`
     }
 
     void initRecycleView() {
@@ -125,5 +179,26 @@ public class DetailsFragment extends Fragment {
     private void arrowBackOnClick() {
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_container);
         navController.navigateUp();
+    }
+
+    @Override
+    public void onSuccessAddToFav(MealModel mealModel) {
+        Toast.makeText(getContext(), "Add " + mealModel.getStrMeal() + " to Favorite", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSuccessRemoveFromFav(MealModel mealModel) {
+        Toast.makeText(getContext(), "Remove " + mealModel.getStrMeal() + " from Favorite", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSuccessGetMealFromDB(ArrayList<MealModel> meals) {
+        this.mealDB = meals;
+        initIsFav();
+    }
+
+    @Override
+    public void onError(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }

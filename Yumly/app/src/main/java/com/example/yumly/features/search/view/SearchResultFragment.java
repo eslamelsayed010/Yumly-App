@@ -19,9 +19,7 @@ import com.example.yumly.core.remote.MealRemoteDataSource;
 import com.example.yumly.core.repo.MealsRepository;
 import com.example.yumly.databinding.FragmentSearchResultBinding;
 import com.example.yumly.features.home.presenter.HomePresenter;
-import com.example.yumly.features.home.view.HomeViewDirections;
 import com.example.yumly.features.home.view.MyHomeView;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 

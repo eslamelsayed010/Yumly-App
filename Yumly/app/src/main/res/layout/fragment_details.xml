@@ -29,12 +29,32 @@
 
             <ImageView
                 android:id="@+id/arrow_back_id"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_gravity="start"
-                android:layout_margin="10dp"
-                app:tint="@color/primaryColor"
-                android:src="@drawable/arrow_back" />
+                android:layout_margin="20dp"
+                android:src="@drawable/arrow_back"
+                app:tint="@color/primaryColor" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/fav_btn_id"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_gravity="end"
+                android:layout_margin="20dp"
+                android:backgroundTint="@color/primaryColor"
+                android:elevation="10dp"
+                app:cardCornerRadius="10dp">
+
+                <ImageView
+                    android:id="@+id/fav_icon_id"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/solid_favorite"
+                    app:tint="@color/white" />
+            </androidx.cardview.widget.CardView>
+
         </androidx.cardview.widget.CardView>
 
         <!-- CardView for the details -->
@@ -85,57 +105,63 @@
 
         <!-- Ingredients TextView -->
         <TextView
-            android:text="@string/ingredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
+            android:text="@string/ingredients"
             android:textColor="@color/primaryColor"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
+
         <View
             android:layout_width="10dp"
-            android:layout_height="10dp"/>
+            android:layout_height="10dp" />
+
         <androidx.cardview.widget.CardView
-            app:cardCornerRadius="20dp"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:layout_height="wrap_content">
+            app:cardCornerRadius="20dp">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
-                android:padding="10dp"
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
             </androidx.recyclerview.widget.RecyclerView>
         </androidx.cardview.widget.CardView>
 
         <!-- Description TextView -->
         <TextView
-            android:text="@string/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
+            android:text="@string/description"
             android:textColor="@color/primaryColor"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
+
         <View
             android:layout_width="10dp"
-            android:layout_height="10dp"/>
+            android:layout_height="10dp" />
+
         <androidx.cardview.widget.CardView
-            app:cardCornerRadius="20dp"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:layout_height="wrap_content">
+            app:cardCornerRadius="20dp">
+
             <TextView
-                android:padding="10dp"
                 android:id="@+id/desc_meal_details_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="@string/preheat_oven_to_350_f_spray_a_9x13_inch_baking_pan_with_non_stick_spray_combine_soy_sauce_cup_water_brown_sugar_ginger_and_garlic_in_a_small_saucepan_and_cover_bring_to_a_boil_over_medium_heat_remove_lid_and_cook_for_one_minute_once_boiling_meanwhile_stir_together_the_corn_starch_and_2_tablespoons_of_water_in_a_separate_dish_until_smooth_once_sauce_is_boiling_add_mixture_to_the_saucepan_and_stir_to_combine_cook_until_the_sauce_starts_to_thicken_then_remove_from_heat_place_the_chicken_breasts_in_the_prepared_pan_pour_one_cup_of_the_sauce_over_top_of_chicken_place_chicken_in_oven_and_bake_35_minutes_or_until_cooked_through_remove_from_oven_and_shred_chicken_in_the_dish_using_two_forks_meanwhile_steam_or_cook_the_vegetables_according_to_package_directions_add_the_cooked_vegetables_and_rice_to_the_casserole_dish_with_the_chicken_add_most_of_the_remaining_sauce_reserving_a_bit_to_drizzle_over_the_top_when_serving_gently_toss_everything_together_in_the_casserole_dish_until_combined_return_to_oven_and_cook_15_minutes_remove_from_oven_and_let_stand_5_minutes_before_serving_drizzle_each_serving_with_remaining_sauce_enjoy"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -144,34 +170,36 @@
 
         <!-- Video TextView -->
         <TextView
-            android:text="@string/youtube"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
+            android:text="@string/youtube"
             android:textColor="@color/primaryColor"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
+
         <View
             android:layout_width="10dp"
-            android:layout_height="10dp"/>
+            android:layout_height="10dp" />
 
         <androidx.cardview.widget.CardView
-            app:cardCornerRadius="20dp"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:elevation="10dp"
-            android:layout_height="wrap_content">
+            app:cardCornerRadius="20dp">
+
             <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/youtube_player_view"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
- />
+                android:layout_height="300dp" />
         </androidx.cardview.widget.CardView>
+
         <View
             android:layout_width="10dp"
-            android:layout_height="100dp"/>
+            android:layout_height="100dp" />
     </LinearLayout>
 
 
