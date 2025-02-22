@@ -68,7 +68,7 @@ public class HomeView extends Fragment implements MyHomeView, OnItemClickListene
     }
 
     private void initGridView() {
-        GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 2, GridLayoutManager.HORIZONTAL, false);
         binding.recyclerViewId.setLayoutManager(layoutManager);
     }
 
