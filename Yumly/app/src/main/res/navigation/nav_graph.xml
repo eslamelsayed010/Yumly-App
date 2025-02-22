@@ -109,7 +109,7 @@
     </fragment>
     <fragment
         android:id="@+id/planFragment"
-        android:name="com.example.yumly.PlanFragment"
+        android:name="com.example.yumly.features.plan.view.PlanFragment"
         android:label="fragment_plan"
         tools:layout="@layout/fragment_plan" >
         <action

@@ -8,38 +8,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.example.yumly.R;
 import com.example.yumly.core.models.MealModel;
+import com.example.yumly.core.models.PlanModel;
 
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<ViewHolder> {
     private final Context context;
-    private ArrayList<MealModel> meals;
+    private ArrayList<PlanModel> planModels;
     private static final String TAG = "MyAdapter";
-    private OnFavClickListener onFavClickListener;
-    String textBtn;
+    private OnPlanClickListener onPlanClickListener;
 
     public MyAdapter(Context context,
-                     ArrayList<MealModel> meals,
-                     OnFavClickListener onFavClickListener
+                     ArrayList<PlanModel> planModels,
+                     OnPlanClickListener onPlanClickListener
     ) {
         this.context = context;
-        this.meals = meals;
-        this.onFavClickListener = onFavClickListener;
+        this.planModels = planModels;
+        this.onPlanClickListener = onPlanClickListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.fav_item, parent, false);
+        View view = inflater.inflate(R.layout.plane_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         Log.i(TAG, "onCreateViewHolder: ");
         return viewHolder;
@@ -48,44 +46,43 @@ public class MyAdapter extends RecyclerView.Adapter<ViewHolder> {
     @SuppressLint({"SetTextI18n", "ResourceAsColor"})
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int index) {
-        MealModel mealModel = meals.get(index);
+        MealModel mealModel = planModels.get(index).getMeal();
         holder.titleTxt.setText(mealModel.getStrMeal());
+        holder.dayTxt.setText("At: " + planModels.get(index).getDay());
         holder.descTxt.setText(mealModel.getStrInstructions());
         holder.country.setText(mealModel.getStrArea());
         Glide.with(context).load(mealModel.getStrMealThumb()).into(holder.imageView);
-        holder.favBtn.setOnClickListener(v-> onFavClickListener.onClick(mealModel));
-        holder.cardView.setOnClickListener(v-> onFavClickListener.onCardClick(mealModel));
+        holder.deleteBtn.setOnClickListener(v-> onPlanClickListener.onClick(planModels.get(index)));
+        holder.cardView.setOnClickListener(v-> onPlanClickListener.onCardClick(mealModel));
     }
 
     @Override
     public int getItemCount() {
-        return meals.size();
-    }
-
-    public void setList(ArrayList<MealModel> meals){
-        this.meals = meals;
+        return planModels.size();
     }
 }
 
 class ViewHolder extends RecyclerView.ViewHolder {
+    public TextView dayTxt;
     public TextView titleTxt;
     public TextView descTxt;
     public TextView country;
     public ImageView imageView;
     public CardView cardView;
-    public ImageView favBtn;
+    public ImageView deleteBtn;
     public View layout;
 
 
     public ViewHolder(View itemView) {
         super(itemView);
         layout = itemView;
-        titleTxt = itemView.findViewById(R.id.title_fav_id);
-        descTxt = itemView.findViewById(R.id.desc_fav_id);
-        country = itemView.findViewById(R.id.country_fav_id);
-        imageView = itemView.findViewById(R.id.fav_image_id);
-        cardView = itemView.findViewById(R.id.fav_item_id);
-        favBtn = itemView.findViewById(R.id.fav_btn_item_id);
+        dayTxt = itemView.findViewById(R.id.day_txt_id);
+        titleTxt = itemView.findViewById(R.id.title_plan_id);
+        descTxt = itemView.findViewById(R.id.desc_plan_id);
+        country = itemView.findViewById(R.id.country_plan_id);
+        imageView = itemView.findViewById(R.id.plan_image_id);
+        cardView = itemView.findViewById(R.id.plan_item_id);
+        deleteBtn = itemView.findViewById(R.id.delete_btn_item_id);
     }
 
 }

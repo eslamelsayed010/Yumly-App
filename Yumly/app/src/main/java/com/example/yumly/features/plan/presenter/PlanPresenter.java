@@ -3,44 +3,45 @@ package com.example.yumly.features.plan.presenter;
 import android.annotation.SuppressLint;
 
 import com.example.yumly.core.models.MealModel;
+import com.example.yumly.core.models.PlanModel;
 import com.example.yumly.core.repo.MealsRepository;
-import com.example.yumly.features.plan.view.FavView;
+import com.example.yumly.features.plan.view.PlanView;
 
 import java.util.ArrayList;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class FavPresenter {
+public class PlanPresenter {
 
-    FavView view;
+    PlanView view;
     MealsRepository repo;
 
 
-    public FavPresenter(FavView view, MealsRepository repo) {
+    public PlanPresenter(PlanView view, MealsRepository repo) {
         this.repo = repo;
         this.view = view;
     }
 
     @SuppressLint("CheckResult")
     public void getMeals(){
-        repo.getFavMeal()
+        repo.getAllPlanByDay()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        mealModels -> view.getMeals(new ArrayList<>(mealModels)),
+                        planModels -> view.getMeals(new ArrayList<>(planModels)),
                         error -> view.getError(error.getMessage())
                 );
 
     }
 
     @SuppressLint("CheckResult")
-    public void removeProduct(MealModel mealModel){
-        repo.deleteMealFromFav(mealModel)
+    public void removePlane(PlanModel model){
+        repo.deleteFromPlan(model.getUserID(), model.getMeal(), model.getDay())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        () -> view.onSuccessRemoveFromFav(mealModel),
+                        () -> view.onSuccessRemoveFromPlan(model.getMeal()),
                         error -> view.getError(error.getMessage())
                 );
     }

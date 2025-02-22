@@ -42,8 +42,8 @@ public class MealsRepository {
         return localDataSource.delete(mealModel);
     }
 
-    public Flowable<List<PlanModel>> getAllPlanByDay(String userID, String day, String type){
-        return localDataSource.getAllPlanByDay(userID, day);
+    public Flowable<List<PlanModel>> getAllPlanByDay(){
+        return localDataSource.getAllPlanByDay();
     }
 
     public Completable insertToPlane(PlanModel planModel){

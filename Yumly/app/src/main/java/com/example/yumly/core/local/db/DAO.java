@@ -23,8 +23,8 @@ public interface DAO {
     @Delete
     Completable deleteProduct(MealModel meals);
 
-    @Query("SELECT * FROM plan_table WHERE userID = :userID AND day = :day")
-    Flowable<List<PlanModel>> getAllPlanByDay(String userID, String day);
+    @Query("SELECT * FROM plan_table")
+    Flowable<List<PlanModel>> getAllPlanByDay();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertToPlane(PlanModel planModel);

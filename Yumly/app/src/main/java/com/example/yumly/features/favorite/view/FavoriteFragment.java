@@ -1,7 +1,6 @@
 package com.example.yumly.features.favorite.view;
 
 import android.os.Bundle;
-
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,8 +18,6 @@ import com.example.yumly.core.remote.MealRemoteDataSource;
 import com.example.yumly.core.repo.MealsRepository;
 import com.example.yumly.databinding.FragmentFavoriteBinding;
 import com.example.yumly.features.favorite.presenter.FavPresenter;
-import com.example.yumly.features.home.view.HomeViewDirections;
-
 import java.util.ArrayList;
 
 public class FavoriteFragment extends Fragment implements FavView, OnFavClickListener {

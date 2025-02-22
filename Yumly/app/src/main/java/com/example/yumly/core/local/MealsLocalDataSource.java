@@ -45,8 +45,8 @@ public class MealsLocalDataSource {
         return dao.addProduct(mealModel);
     }
 
-    public Flowable<List<PlanModel>> getAllPlanByDay(String userID, String day) {
-        return dao.getAllPlanByDay(userID, day);
+    public Flowable<List<PlanModel>> getAllPlanByDay() {
+        return dao.getAllPlanByDay();
     }
 
     public Completable insertToPlane(PlanModel planModel) {
