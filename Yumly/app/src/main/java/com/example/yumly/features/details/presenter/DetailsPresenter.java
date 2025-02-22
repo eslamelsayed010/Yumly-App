@@ -2,6 +2,7 @@ package com.example.yumly.features.details.presenter;
 
 import android.annotation.SuppressLint;
 import com.example.yumly.core.models.MealModel;
+import com.example.yumly.core.models.PlanModel;
 import com.example.yumly.core.repo.MealsRepository;
 import com.example.yumly.features.details.view.DetailsView;
 import java.util.ArrayList;
@@ -47,6 +48,17 @@ public class DetailsPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         meal -> view.onSuccessGetMealFromDB(new ArrayList<>(meal)),
+                        error -> view.onError(error.getMessage())
+                );
+    }
+
+    @SuppressLint("CheckResult")
+    public void insertToPlane(PlanModel planModel){
+        repo.insertToPlane(planModel)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        ()-> view.onSuccessAddToPlan(planModel),
                         error -> view.onError(error.getMessage())
                 );
     }

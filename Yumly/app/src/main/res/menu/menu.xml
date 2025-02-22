@@ -10,7 +10,7 @@
         android:icon="@drawable/solid_favorite"
         android:title="@string/favorite" />
     <item
-
+        android:id="@+id/planFragment"
         android:icon="@drawable/calendar"
         android:title="@string/plane" />
     <item

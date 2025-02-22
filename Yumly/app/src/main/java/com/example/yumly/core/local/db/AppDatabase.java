@@ -4,9 +4,13 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
+import com.example.yumly.core.converter.MealModelConverter;
 import com.example.yumly.core.models.MealModel;
+import com.example.yumly.core.models.PlanModel;
 
-@Database(entities = {MealModel.class}, version = 1)
+@Database(entities = {MealModel.class, PlanModel.class}, version = 2)
+@TypeConverters(MealModelConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase appDataBase = null;
@@ -17,7 +21,7 @@ public abstract class AppDatabase extends RoomDatabase {
             appDataBase = Room.databaseBuilder(
                     context.getApplicationContext(),
                     AppDatabase.class,
-                    "mealDb"
+                    "mealDatabase"
             ).build();
         return appDataBase;
     }

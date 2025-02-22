@@ -86,4 +86,8 @@ dependencies {
     //youtube
     implementation(libs.core)
 
+    //gson
+    implementation(libs.gson)
+
+
 }

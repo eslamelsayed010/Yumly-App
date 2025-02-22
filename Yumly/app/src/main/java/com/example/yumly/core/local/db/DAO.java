@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import com.example.yumly.core.models.MealModel;
+import com.example.yumly.core.models.PlanModel;
 import java.util.List;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
@@ -21,4 +22,13 @@ public interface DAO {
 
     @Delete
     Completable deleteProduct(MealModel meals);
+
+    @Query("SELECT * FROM plan_table WHERE userID = :userID AND day = :day")
+    Flowable<List<PlanModel>> getAllPlanByDay(String userID, String day);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insertToPlane(PlanModel planModel);
+
+    @Query("DELETE FROM plan_table WHERE userID = :userID AND meal = :meal AND day = :day")
+    Completable deleteFromPlan(String userID, MealModel meal, String day);
 }

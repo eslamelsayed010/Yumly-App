@@ -1,6 +1,7 @@
 package com.example.yumly.core.repo;
 
 import com.example.yumly.core.local.MealsLocalDataSource;
+import com.example.yumly.core.models.PlanModel;
 import com.example.yumly.core.remote.MealRemoteDataSource;
 import com.example.yumly.core.models.MealModel;
 import com.example.yumly.core.remote.NetworkCallback;
@@ -39,6 +40,18 @@ public class MealsRepository {
 
     public Completable deleteMealFromFav(MealModel mealModel){
         return localDataSource.delete(mealModel);
+    }
+
+    public Flowable<List<PlanModel>> getAllPlanByDay(String userID, String day, String type){
+        return localDataSource.getAllPlanByDay(userID, day);
+    }
+
+    public Completable insertToPlane(PlanModel planModel){
+        return localDataSource.insertToPlane(planModel);
+    }
+
+    public Completable deleteFromPlan(String userID, MealModel meal, String day){
+        return localDataSource.deleteFromPlan(userID, meal, day);
     }
 
 

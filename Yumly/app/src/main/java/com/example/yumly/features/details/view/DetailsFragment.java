@@ -1,7 +1,6 @@
 package com.example.yumly.features.details.view;
 
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -10,25 +9,29 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.example.yumly.R;
 import com.example.yumly.core.local.MealsLocalDataSource;
 import com.example.yumly.core.models.IngredientDetailsModel;
 import com.example.yumly.core.models.MealModel;
+import com.example.yumly.core.models.PlanModel;
+import com.example.yumly.core.models.UserModel;
 import com.example.yumly.core.remote.MealRemoteDataSource;
 import com.example.yumly.core.repo.MealsRepository;
 import com.example.yumly.databinding.FragmentDetailsBinding;
+import com.example.yumly.features.auth.views.AuthMenuViewDirections;
 import com.example.yumly.features.details.presenter.DetailsPresenter;
 import com.example.yumly.features.search.view.SearchResultFragmentArgs;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -44,10 +47,18 @@ public class DetailsFragment extends Fragment implements DetailsView {
     DetailsPresenter presenter;
     ArrayList<MealModel> mealDB = new ArrayList<>();
     boolean isFav;
+    private FirebaseAuth mAuth;
+    FirebaseUser currentUser;
 
     public DetailsFragment() {
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -107,6 +118,11 @@ public class DetailsFragment extends Fragment implements DetailsView {
                 presenter.addToFav(mealModel);
             }
         });
+        binding.btnAddToCalendarId.setOnClickListener(v -> {
+            Calender.showDate(requireContext(), selectedDate -> {
+                presenter.insertToPlane(new PlanModel(selectedDate, currentUser.getUid(), mealModel));
+            });
+        });
     }
 
     void initIsFav() {
@@ -164,7 +180,7 @@ public class DetailsFragment extends Fragment implements DetailsView {
                 queryPairs.put(pair[0], pair[1]);
             }
         }
-        return queryPairs.get("v"); // Might still return null, handle this in `initYoutube()`
+        return queryPairs.get("v");
     }
 
     void initRecycleView() {
@@ -198,7 +214,13 @@ public class DetailsFragment extends Fragment implements DetailsView {
     }
 
     @Override
+    public void onSuccessAddToPlan(PlanModel planModel) {
+        Toast.makeText(requireContext(), "Added " +planModel.getMeal().getStrMeal() + " successfully", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onError(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+        Log.i("TAG", "onError: " + msg);
     }
 }
