@@ -88,7 +88,7 @@ public class PlanFragment extends Fragment implements PlanView, OnPlanClickListe
 
     @Override
     public void onSuccessRemoveFromPlan(MealModel mealModel) {
-        Toast.makeText(getContext(), "Remove "  + mealModel.getStrMeal() + " from Favorite", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Remove "  + mealModel.getStrMeal() + " from Plan", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -23,7 +23,7 @@ public interface DAO {
     @Delete
     Completable deleteProduct(MealModel meals);
 
-    @Query("SELECT * FROM plan_table ORDER BY substr(day, 7, 4) || substr(day, 4, 2) || substr(day, 1, 2) ASC")
+    @Query("SELECT * FROM plan_table ORDER BY substr(day, 12, 4) || substr(day, 9, 2) || substr(day, 6, 2) ASC")
     Flowable<List<PlanModel>> getAllPlanByDate();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

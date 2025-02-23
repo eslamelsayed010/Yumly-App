@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Calender {
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd-MM-yyyy", Locale.ENGLISH);
     private static Calendar calendar;
 
     private Calender() {}
@@ -31,16 +31,15 @@ public class Calender {
     public static String getDay(String dateStr) {
         Date date = null;
         try {
-            date = sdf.parse(dateStr);
+            SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+            date = inputFormat.parse(dateStr);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
 
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.ENGLISH);
         return dayFormat.format(date);
-
     }
-
 
     public static void showDate(Context context, DateSelectedCallback callback) {
         calendar = Calendar.getInstance();
@@ -50,7 +49,6 @@ public class Calender {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 context,
                 (view, selectedYear, selectedMonth, selectedDay) -> {
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
                     Calendar selectedCal = Calendar.getInstance();
                     selectedCal.set(selectedYear, selectedMonth, selectedDay);
                     String selectedDate = sdf.format(selectedCal.getTime());
@@ -61,5 +59,4 @@ public class Calender {
         datePickerDialog.getDatePicker().setMinDate(getMinDateForDialog());
         datePickerDialog.show();
     }
-
 }
