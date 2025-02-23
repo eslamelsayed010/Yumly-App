@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
                 bottomNavigationView.setVisibility(View.INVISIBLE);
             } else if (navDestination.getId() == R.id.detailsFragment) {
                 bottomNavigationView.setVisibility(View.INVISIBLE);
+            } else if (navDestination.getId() == R.id.searchResultFragment) {
+                bottomNavigationView.setVisibility(View.INVISIBLE);
             } else {
                 bottomNavigationView.setVisibility(View.VISIBLE);
             }
