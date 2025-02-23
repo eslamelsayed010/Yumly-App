@@ -2,7 +2,6 @@ package com.example.yumly.features.plan.presenter;
 
 import android.annotation.SuppressLint;
 
-import com.example.yumly.core.models.MealModel;
 import com.example.yumly.core.models.PlanModel;
 import com.example.yumly.core.repo.MealsRepository;
 import com.example.yumly.features.plan.view.PlanView;

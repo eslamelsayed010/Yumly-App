@@ -11,7 +11,6 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
-import io.reactivex.rxjava3.core.Single;
 
 public class MealsLocalDataSource {
 
@@ -46,7 +45,7 @@ public class MealsLocalDataSource {
     }
 
     public Flowable<List<PlanModel>> getAllPlanByDay() {
-        return dao.getAllPlanByDay();
+        return dao.getAllPlanByDate();
     }
 
     public Completable insertToPlane(PlanModel planModel) {
