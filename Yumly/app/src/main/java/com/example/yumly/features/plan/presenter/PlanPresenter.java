@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.example.yumly.core.firebase.FireBaseRepo;
-import com.example.yumly.core.models.MealModel;
 import com.example.yumly.core.models.PlanModel;
 import com.example.yumly.core.repo.MealsRepository;
 import com.example.yumly.features.plan.view.PlanView;
@@ -53,7 +52,7 @@ public class PlanPresenter {
                         () -> view.onSuccessRemoveFromPlan(model.getMeal()),
                         error -> view.getError(error.getMessage())
                 );
-        fireBaseRepo.deleteFromFireBase(model.getUserID(), model.getMeal(), model.getDay(), "plan");
+        fireBaseRepo.deleteFromFireBase(model.getUserID(), model.getMeal(), "", "plan");
     }
 
     public void insertAllPlansFromFirebase(String userID, String type) {
