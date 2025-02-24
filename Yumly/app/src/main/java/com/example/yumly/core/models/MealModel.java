@@ -108,6 +108,9 @@ public class MealModel implements Parcelable {
     @Nullable
     private String strMeasure20;
 
+    public MealModel() {}
+
+
     public MealModel(String idMeal,
                      String strMeal,
                      String strCategory,

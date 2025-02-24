@@ -1,21 +1,19 @@
 package com.example.yumly.core.models;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import java.io.Serializable;
-import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 import com.example.yumly.core.converter.MealModelConverter;
 
-@Entity(tableName = "plan_table")
+@Entity(tableName = "plan_table", primaryKeys = {"userID", "meal", "day"})
 @TypeConverters(MealModelConverter.class)
 public class PlanModel implements Serializable {
-
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-
+    @NonNull
     private String day;
+    @NonNull
     private String userID;
-
+    @NonNull
     private MealModel meal;
 
     public PlanModel() {
@@ -51,11 +49,4 @@ public class PlanModel implements Serializable {
         this.meal = meal;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

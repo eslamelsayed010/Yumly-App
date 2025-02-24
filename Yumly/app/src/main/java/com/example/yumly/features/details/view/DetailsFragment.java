@@ -111,11 +111,11 @@ public class DetailsFragment extends Fragment implements DetailsView {
             if (isFav) {
                 isFav = false;
                 binding.favIconId.setImageResource(R.drawable.favorite);
-                presenter.removeFromFav(mealModel);
+                presenter.removeFromFav(mealModel, currentUser.getUid());
             } else {
                 isFav = true;
                 binding.favIconId.setImageResource(R.drawable.solid_favorite);
-                presenter.addToFav(mealModel);
+                presenter.addToFav(mealModel, currentUser.getUid());
             }
         });
         binding.btnAddToCalendarId.setOnClickListener(v -> {

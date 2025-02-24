@@ -14,7 +14,7 @@
         android:icon="@drawable/calendar"
         android:title="@string/plane" />
     <item
-
+        android:id="@+id/profileFragment"
         android:icon="@drawable/settings"
         android:title="@string/settings" />
 </menu>

@@ -54,7 +54,7 @@ dependencies {
     implementation(libs.lottie)
     implementation(libs.material.v190)
 
-   //firebase
+    //firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.play.services.auth)
     implementation(libs.google.firebase.auth)
@@ -70,8 +70,8 @@ dependencies {
     implementation(libs.glide)
 
     //Room
-    implementation (libs.room.runtime)
-    annotationProcessor (libs.room.compiler)
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
 
     //JavaRX
     implementation(libs.rxandroid)
@@ -88,6 +88,9 @@ dependencies {
 
     //gson
     implementation(libs.gson)
+
+    //firebase database
+    implementation(libs.firebase.database)
 
 
 }

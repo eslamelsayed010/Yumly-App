@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +21,10 @@ import com.example.yumly.core.models.PlanModel;
 import com.example.yumly.core.remote.MealRemoteDataSource;
 import com.example.yumly.core.repo.MealsRepository;
 import com.example.yumly.databinding.FragmentPlanBinding;
-import com.example.yumly.features.favorite.view.FavoriteFragmentDirections;
 import com.example.yumly.features.plan.presenter.PlanPresenter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 
 public class PlanFragment extends Fragment implements PlanView, OnPlanClickListener {
@@ -29,6 +33,8 @@ public class PlanFragment extends Fragment implements PlanView, OnPlanClickListe
     PlanPresenter presenter;
     RecyclerView recyclerView;
     MyAdapter myAdapter;
+    private FirebaseAuth mAuth;
+    FirebaseUser currentUser;
 
     public PlanFragment() {}
 
@@ -40,8 +46,13 @@ public class PlanFragment extends Fragment implements PlanView, OnPlanClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentPlanBinding.inflate(inflater, container, false);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
         return binding.getRoot();
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -65,7 +76,15 @@ public class PlanFragment extends Fragment implements PlanView, OnPlanClickListe
                 MealsRepository.getInstance(MealsLocalDataSource.getInstance(requireContext()),
                         MealRemoteDataSource.getInstance()));
         presenter.getMeals();
+
+        if (currentUser != null) {
+            Log.d("Auth", "User ID: " + currentUser.getUid());
+            presenter.insertAllPlansFromFirebase(currentUser.getUid(), "plan");
+        } else {
+            Log.e("Auth", "User is null. Cannot fetch plans.");
+        }
     }
+
 
     private void initRecycleView() {
         recyclerView = binding.recyclerView;

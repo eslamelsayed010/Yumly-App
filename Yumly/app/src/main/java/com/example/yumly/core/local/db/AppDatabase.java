@@ -9,7 +9,7 @@ import com.example.yumly.core.converter.MealModelConverter;
 import com.example.yumly.core.models.MealModel;
 import com.example.yumly.core.models.PlanModel;
 
-@Database(entities = {MealModel.class, PlanModel.class}, version = 2)
+@Database(entities = {MealModel.class, PlanModel.class}, version = 4)
 @TypeConverters(MealModelConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -21,7 +21,7 @@ public abstract class AppDatabase extends RoomDatabase {
             appDataBase = Room.databaseBuilder(
                     context.getApplicationContext(),
                     AppDatabase.class,
-                    "mealDatabase"
+                    "mealDatabase2"
             ).build();
         return appDataBase;
     }

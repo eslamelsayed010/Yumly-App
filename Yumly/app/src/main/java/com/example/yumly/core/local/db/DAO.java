@@ -31,4 +31,16 @@ public interface DAO {
 
     @Query("DELETE FROM plan_table WHERE userID = :userID AND meal = :meal AND day = :day")
     Completable deleteFromPlan(String userID, MealModel meal, String day);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insertAll(List<PlanModel> planModels);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insertAllFav(List<MealModel> mealModels);
+
+    @Query("DELETE FROM plan_table")
+    Completable deleteAllPlan();
+
+    @Query("DELETE FROM meal_table")
+    Completable deleteAllFav();
 }

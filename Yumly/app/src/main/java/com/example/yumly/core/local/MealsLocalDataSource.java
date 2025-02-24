@@ -1,5 +1,6 @@
 package com.example.yumly.core.local;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.example.yumly.core.local.db.AppDatabase;
@@ -9,8 +10,11 @@ import com.example.yumly.core.models.PlanModel;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealsLocalDataSource {
 
@@ -54,6 +58,22 @@ public class MealsLocalDataSource {
 
     public Completable deleteFromPlan(String userID, MealModel meal, String day) {
         return dao.deleteFromPlan(userID, meal, day);
+    }
 
+    public Completable insertAll(List<PlanModel> planModels) {
+        return dao.insertAll(planModels);
+    }
+
+    public Completable insertAllFav(List<MealModel> mealModels) {
+        return dao.insertAllFav(mealModels);
+    }
+
+    @SuppressLint("CheckResult")
+    public void deleteAll() {
+        dao.deleteAllFav().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe();
+
+        dao.deleteAllPlan().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe();
     }
 }

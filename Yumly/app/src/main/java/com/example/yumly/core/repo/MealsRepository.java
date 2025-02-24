@@ -67,4 +67,16 @@ public class MealsRepository {
         remoteDataSource.getMealDetails(networkCallback, id);
     }
 
+    public Completable insertAll(List<PlanModel> planModels){
+        return localDataSource.insertAll(planModels);
+    }
+
+    public Completable insertAllFav(List<MealModel> mealModels){
+        return localDataSource.insertAllFav(mealModels);
+    }
+
+    public void deleteAll(){
+        localDataSource.deleteAll();
+    }
+
 }

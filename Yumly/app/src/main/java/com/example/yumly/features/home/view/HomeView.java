@@ -114,13 +114,3 @@ public class HomeView extends Fragment implements MyHomeView, OnItemClickListene
     }
 
 }
-
-//        binding.logoutId.setOnClickListener(v -> {
-//            FirebaseAuth.getInstance().signOut();
-//            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_container);
-//            navController.navigateUp();
-//        });
-
-//        if (getArguments() != null) {
-//            userModel = HomeViewArgs.fromBundle(getArguments()).getUser();
-//        }
