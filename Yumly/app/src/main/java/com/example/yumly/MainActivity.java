@@ -1,5 +1,7 @@
 package com.example.yumly;
 
+import android.content.IntentFilter;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
 
@@ -9,9 +11,11 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.yumly.core.wifi.WifiStateReceiver;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+    WifiStateReceiver wifiStateReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,24 +32,31 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
         navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
-            if (navDestination.getId() == R.id.loginView) {
-                bottomNavigationView.setVisibility(View.INVISIBLE);
-            } else if (navDestination.getId() == R.id.signupView) {
-                bottomNavigationView.setVisibility(View.INVISIBLE);
-            } else if (navDestination.getId() == R.id.authMenu) {
-                bottomNavigationView.setVisibility(View.INVISIBLE);
-            } else if (navDestination.getId() == R.id.splashView) {
-                bottomNavigationView.setVisibility(View.INVISIBLE);
-            } else if (navDestination.getId() == R.id.searchFragment) {
-                bottomNavigationView.setVisibility(View.INVISIBLE);
-            } else if (navDestination.getId() == R.id.detailsFragment) {
-                bottomNavigationView.setVisibility(View.INVISIBLE);
-            } else if (navDestination.getId() == R.id.searchResultFragment) {
+            if (navDestination.getId() == R.id.loginView ||
+                    navDestination.getId() == R.id.signupView ||
+                    navDestination.getId() == R.id.authMenu ||
+                    navDestination.getId() == R.id.splashView ||
+                    navDestination.getId() == R.id.searchFragment ||
+                    navDestination.getId() == R.id.detailsFragment ||
+                    navDestination.getId() == R.id.searchResultFragment) {
                 bottomNavigationView.setVisibility(View.INVISIBLE);
             } else {
                 bottomNavigationView.setVisibility(View.VISIBLE);
             }
         });
+
+
+        IntentFilter filter = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        wifiStateReceiver = new WifiStateReceiver(this);
+        registerReceiver(wifiStateReceiver, filter);
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(wifiStateReceiver);
+    }
+
 
 }
