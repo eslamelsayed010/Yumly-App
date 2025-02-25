@@ -1,4 +1,4 @@
-package com.example.yumly;
+package com.example.yumly.features.profile;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.yumly.R;
 import com.example.yumly.core.local.MealsLocalDataSource;
 import com.example.yumly.core.remote.MealRemoteDataSource;
 import com.example.yumly.core.repo.MealsRepository;
