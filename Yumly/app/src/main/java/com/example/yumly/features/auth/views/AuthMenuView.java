@@ -111,20 +111,12 @@ public class AuthMenuView extends Fragment {
     private void signInWithGoogle() {
         oneTapClient.beginSignIn(signInRequest).addOnSuccessListener(requireActivity(), result -> {
             try {
-                oneTapClient.beginSignIn(signInRequest).addOnSuccessListener(requireActivity(), r -> {
-                    try {
-                        IntentSenderRequest intentSenderRequest = new IntentSenderRequest.Builder(result.getPendingIntent().getIntentSender()).build();
-                        googleSignInLauncher.launch(intentSenderRequest);
-                    } catch (Exception e) {
-                        Log.e(TAG, "Google Sign-In intent failed", e);
-                    }
-                }).addOnFailureListener(e -> Log.w(TAG, "Google Sign-In failed", e));
-
+                IntentSenderRequest intentSenderRequest = new IntentSenderRequest.Builder(result.getPendingIntent().getIntentSender()).build();
+                googleSignInLauncher.launch(intentSenderRequest);
             } catch (Exception e) {
                 Log.e(TAG, "Google Sign-In intent failed", e);
             }
         }).addOnFailureListener(requireActivity(), e -> Log.w(TAG, "Google Sign-In failed", e));
-
     }
 
     private final ActivityResultLauncher<IntentSenderRequest> googleSignInLauncher = registerForActivityResult(new ActivityResultContracts.StartIntentSenderForResult(), result -> {

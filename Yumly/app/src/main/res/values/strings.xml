@@ -66,5 +66,5 @@
     <string name="you_should_login_first_to_continue">You should login first to continue!</string>
     <string name="your_wifi_is_turned_off_please_enable_it_for_a_better_experience">Your connection is lost</string>
     <string name="turn_on">Turn On</string>
-
+    <string name="default_web_client_id">AIzaSyAXcAUHn0KzGF7a3nd90EfayQ9NGrQY9Qo</string>
 </resources>

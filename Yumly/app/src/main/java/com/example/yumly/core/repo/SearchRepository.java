@@ -27,7 +27,7 @@ public class SearchRepository {
 
     void fillCountryList(){
         countries.add(new CountryModel("Egyptian", R.drawable.egypt));
-        countries.add(new CountryModel("American", R.drawable.america));
+        countries.add(new CountryModel("American", R.drawable.a));
         countries.add(new CountryModel("British", R.drawable.britain));
         countries.add(new CountryModel("Canadian", R.drawable.canada));
         countries.add(new CountryModel("Chinese", R.drawable.china));
@@ -53,7 +53,7 @@ public class SearchRepository {
         countries.add(new CountryModel("Turkish", R.drawable.turkey));
         countries.add(new CountryModel("Ukrainian", R.drawable.ukraine));
         countries.add(new CountryModel("Uruguayan", R.drawable.uruguay));
-        countries.add(new CountryModel("Vietnamese", R.drawable.vietnam));
+        countries.add(new CountryModel("Vietnamese", R.drawable.v));
     }
 
     public void getRemoteCategory(NetworkCallback networkCallback){
