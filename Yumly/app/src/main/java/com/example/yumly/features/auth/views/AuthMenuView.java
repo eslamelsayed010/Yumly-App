@@ -2,6 +2,8 @@ package com.example.yumly.features.auth.views;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -9,11 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import com.example.yumly.R;
 import com.example.yumly.core.models.UserModel;
 import com.example.yumly.databinding.FragmentAuthMenuBinding;
@@ -40,14 +44,15 @@ public class AuthMenuView extends Fragment {
 
     UserModel user;
 
-    public AuthMenuView() {}
+    public AuthMenuView() {
+    }
 
     @Override
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null){
-            this.user = new UserModel(currentUser.getDisplayName(), currentUser.getEmail(),currentUser.getUid());
+        if (currentUser != null) {
+            this.user = new UserModel(currentUser.getDisplayName(), currentUser.getEmail(), currentUser.getUid());
             AuthMenuViewDirections.ActionAuthMenuToHomeView action = AuthMenuViewDirections.actionAuthMenuToHomeView(this.user);
             Navigation.findNavController(view).navigate(action);
         }
@@ -59,8 +64,7 @@ public class AuthMenuView extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAuthMenuBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -72,79 +76,84 @@ public class AuthMenuView extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         setupGoogleSignIn();
         setupUIActions();
+        closeApp();
+    }
+
+    public void closeApp() {
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                requireActivity().finish(); // Close the app
+            }
+        });
     }
 
     private void setupUIActions() {
+        initClick();
+    }
+
+    void initClick() {
         binding.textButtonLogInId.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_authMenu_to_loginView));
         binding.signupBtnId.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_authMenu_to_signupView));
         binding.signupGoogleId.setOnClickListener(v -> signInWithGoogle());
+        binding.guestBtnId.setOnClickListener(v -> {
+            this.user = new UserModel("Guest", "Guest", "0");
+            AuthMenuViewDirections.ActionAuthMenuToHomeView action = AuthMenuViewDirections.actionAuthMenuToHomeView(this.user);
+            Navigation.findNavController(view).navigate(action);
+        });
     }
 
     private void setupGoogleSignIn() {
         oneTapClient = Identity.getSignInClient(requireActivity());
-        signInRequest = BeginSignInRequest.builder()
-                .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                        .setSupported(true)
-                        .setServerClientId(getString(R.string.default_web_client_id))
-                        .setFilterByAuthorizedAccounts(true)
-                        .build())
-                .build();
+        signInRequest = BeginSignInRequest.builder().setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder().setSupported(true).setServerClientId(getString(R.string.default_web_client_id)).setFilterByAuthorizedAccounts(true).build()).build();
     }
 
     private void signInWithGoogle() {
-        oneTapClient.beginSignIn(signInRequest)
-                .addOnSuccessListener(requireActivity(), result -> {
+        oneTapClient.beginSignIn(signInRequest).addOnSuccessListener(requireActivity(), result -> {
+            try {
+                oneTapClient.beginSignIn(signInRequest).addOnSuccessListener(requireActivity(), r -> {
                     try {
-                        oneTapClient.beginSignIn(signInRequest)
-                                .addOnSuccessListener(requireActivity(), r-> {
-                                    try {
-                                        IntentSenderRequest intentSenderRequest = new IntentSenderRequest.Builder(result.getPendingIntent().getIntentSender()).build();
-                                        googleSignInLauncher.launch(intentSenderRequest);
-                                    } catch (Exception e) {
-                                        Log.e(TAG, "Google Sign-In intent failed", e);
-                                    }
-                                })
-                                .addOnFailureListener(e -> Log.w(TAG, "Google Sign-In failed", e));
-
+                        IntentSenderRequest intentSenderRequest = new IntentSenderRequest.Builder(result.getPendingIntent().getIntentSender()).build();
+                        googleSignInLauncher.launch(intentSenderRequest);
                     } catch (Exception e) {
                         Log.e(TAG, "Google Sign-In intent failed", e);
                     }
-                })
-                .addOnFailureListener(requireActivity(), e -> Log.w(TAG, "Google Sign-In failed", e));
+                }).addOnFailureListener(e -> Log.w(TAG, "Google Sign-In failed", e));
+
+            } catch (Exception e) {
+                Log.e(TAG, "Google Sign-In intent failed", e);
+            }
+        }).addOnFailureListener(requireActivity(), e -> Log.w(TAG, "Google Sign-In failed", e));
 
     }
 
-    private final ActivityResultLauncher<IntentSenderRequest> googleSignInLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartIntentSenderForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                    try {
-                        SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(result.getData());
-                        String idToken = credential.getGoogleIdToken();
-                        if (idToken != null) {
-                            firebaseAuthWithGoogle(idToken);
-                        }
-                    } catch (ApiException e) {
-                        Log.e(TAG, "Google Sign-In failed", e);
-                    }
+    private final ActivityResultLauncher<IntentSenderRequest> googleSignInLauncher = registerForActivityResult(new ActivityResultContracts.StartIntentSenderForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+            try {
+                SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(result.getData());
+                String idToken = credential.getGoogleIdToken();
+                if (idToken != null) {
+                    firebaseAuthWithGoogle(idToken);
                 }
-            });
+            } catch (ApiException e) {
+                Log.e(TAG, "Google Sign-In failed", e);
+            }
+        }
+    });
 
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        Toast.makeText(requireContext(), "Welcome, " + user.getDisplayName(), Toast.LENGTH_LONG).show();
-                        this.user = new UserModel(user.getDisplayName(), user.getEmail(),user.getUid());
-                        AuthMenuViewDirections.ActionAuthMenuToHomeView action = AuthMenuViewDirections.actionAuthMenuToHomeView(this.user);
-                        Navigation.findNavController(view).navigate(action);
-                        //Navigation.findNavController(view).navigate(R.id.action_authMenu_to_homeView);
-                    } else {
-                        Log.w(TAG, "Google authentication failed", task.getException());
-                    }
-                });
+        mAuth.signInWithCredential(credential).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                FirebaseUser user = mAuth.getCurrentUser();
+                Toast.makeText(requireContext(), "Welcome, " + user.getDisplayName(), Toast.LENGTH_LONG).show();
+                this.user = new UserModel(user.getDisplayName(), user.getEmail(), user.getUid());
+                AuthMenuViewDirections.ActionAuthMenuToHomeView action = AuthMenuViewDirections.actionAuthMenuToHomeView(this.user);
+                Navigation.findNavController(view).navigate(action);
+            } else {
+                Log.w(TAG, "Google authentication failed", task.getException());
+            }
+        });
     }
 
 }

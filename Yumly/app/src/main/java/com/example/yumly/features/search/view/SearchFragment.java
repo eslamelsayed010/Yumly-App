@@ -1,5 +1,6 @@
 package com.example.yumly.features.search.view;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,23 +12,29 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.yumly.R;
+import com.example.yumly.core.local.MealsLocalDataSource;
 import com.example.yumly.core.models.CatModel;
 import com.example.yumly.core.models.IngredientModel;
 import com.example.yumly.core.models.MealModel;
 import com.example.yumly.core.remote.MealRemoteDataSource;
+import com.example.yumly.core.repo.MealsRepository;
 import com.example.yumly.core.repo.SearchRepository;
 import com.example.yumly.core.models.CountryModel;
 import com.example.yumly.databinding.FragmentSearchBinding;
 import com.example.yumly.features.search.presenter.SearchPresenter;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +47,12 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
     ArrayList<IngredientModel> ingredients = new ArrayList<>();
     SearchPresenter presenter;
     ArrayList<CatModel> cats;
+    FirebaseUser currentUser;
+    FirebaseAuth mAuth;
+
+    Dialog dialog;
+    Button cancelBtn;
+    Button logoutBtn;
 
 
     public SearchFragment() {
@@ -53,6 +66,8 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSearchBinding.inflate(inflater, container, false);
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
         return binding.getRoot();
     }
 
@@ -64,6 +79,7 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
         initPresenter();
         setUpGroupChips();
         handleSearchBTN();
+        initDialog();
     }
 
     void handleSearchBTN() {
@@ -72,7 +88,8 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
         if (editText != null) {
             editText.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -81,7 +98,8 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
                 }
 
                 @Override
-                public void afterTextChanged(Editable s) {}
+                public void afterTextChanged(Editable s) {
+                }
             });
         }
     }
@@ -169,6 +187,7 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
     }
 
     private void setUpGroupChips() {
+        Log.i("TAG", "setUpGroupChips: ++++++" + currentUser);
         binding.chipGroupFilter.setSingleSelection(true);
         for (int i = 0; i < binding.chipGroupFilter.getChildCount(); i++) {
             Chip chip = (Chip) binding.chipGroupFilter.getChildAt(i);
@@ -180,12 +199,20 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
                             binding.recyclerViewId.setAdapter(gridAdapterCategory);
                             break;
                         case "Ingredient":
-                            GridAdapterIngredients gridAdapterIngredients = new GridAdapterIngredients(requireContext(), ingredients, this);
-                            binding.recyclerViewId.setAdapter(gridAdapterIngredients);
+                            if (currentUser == null) {
+                                dialog.show();
+                            } else {
+                                GridAdapterIngredients gridAdapterIngredients = new GridAdapterIngredients(requireContext(), ingredients, this);
+                                binding.recyclerViewId.setAdapter(gridAdapterIngredients);
+                            }
                             break;
                         case "Country":
-                            GridAdapterChips gridAdapter = new GridAdapterChips(requireContext(), countries, this);
-                            binding.recyclerViewId.setAdapter(gridAdapter);
+                            if (currentUser == null) {
+                                dialog.show();
+                            } else {
+                                GridAdapterChips gridAdapter = new GridAdapterChips(requireContext(), countries, this);
+                                binding.recyclerViewId.setAdapter(gridAdapter);
+                            }
                             break;
                     }
                     Toast.makeText(getActivity(), chip.getText().toString(), Toast.LENGTH_SHORT).show();
@@ -193,6 +220,21 @@ public class SearchFragment extends Fragment implements SearchView, OnItemClickL
             });
 
         }
+    }
+
+    private void initDialog() {
+        dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.custom_login_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_dialog_bg));
+        dialog.setCancelable(false);
+        cancelBtn = dialog.findViewById(R.id.dialog_cancel);
+        logoutBtn = dialog.findViewById(R.id.dialog_confirm);
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+        logoutBtn.setOnClickListener(v -> {
+            Navigation.findNavController(getView()).navigate(R.id.action_searchFragment_to_authMenu);
+            dialog.dismiss();
+        });
     }
 
     @Override

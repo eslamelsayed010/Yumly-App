@@ -1,6 +1,8 @@
 package com.example.yumly.features.plan.view;
 
+import android.app.Dialog;
 import android.os.Bundle;
+
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,8 +15,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.yumly.R;
 import com.example.yumly.core.local.MealsLocalDataSource;
 import com.example.yumly.core.models.MealModel;
 import com.example.yumly.core.models.PlanModel;
@@ -33,18 +37,23 @@ public class PlanFragment extends Fragment implements PlanView, OnPlanClickListe
     PlanPresenter presenter;
     RecyclerView recyclerView;
     MyAdapter myAdapter;
-    private FirebaseAuth mAuth;
+    FirebaseAuth mAuth;
     FirebaseUser currentUser;
 
-    public PlanFragment() {}
+    Dialog dialog;
+    Button cancelBtn;
+    Button logoutBtn;
+
+    public PlanFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);}
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentPlanBinding.inflate(inflater, container, false);
 
         mAuth = FirebaseAuth.getInstance();
@@ -58,8 +67,28 @@ public class PlanFragment extends Fragment implements PlanView, OnPlanClickListe
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         closeApp();
-        initPresenter();
-        initRecycleView();
+        initDialog();
+        if (currentUser == null) dialog.show();
+        else {
+            initPresenter();
+            initRecycleView();
+        }
+    }
+
+    private void initDialog() {
+        dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.custom_login_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_dialog_bg));
+        dialog.setCancelable(false);
+        cancelBtn = dialog.findViewById(R.id.dialog_cancel);
+        logoutBtn = dialog.findViewById(R.id.dialog_confirm);
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+        logoutBtn.setOnClickListener(v -> {
+            Navigation.findNavController(getView()).navigate(R.id.action_planFragment_to_authMenu);
+            Navigation.findNavController(getView()).popBackStack(R.id.planFragment, true);
+            dialog.dismiss();
+        });
     }
 
     public void closeApp() {
@@ -71,10 +100,8 @@ public class PlanFragment extends Fragment implements PlanView, OnPlanClickListe
         });
     }
 
-    void initPresenter(){
-        presenter = new PlanPresenter(this,
-                MealsRepository.getInstance(MealsLocalDataSource.getInstance(requireContext()),
-                        MealRemoteDataSource.getInstance()));
+    void initPresenter() {
+        presenter = new PlanPresenter(this, MealsRepository.getInstance(MealsLocalDataSource.getInstance(requireContext()), MealRemoteDataSource.getInstance()));
         presenter.getMeals();
 
         if (currentUser != null) {
@@ -107,7 +134,7 @@ public class PlanFragment extends Fragment implements PlanView, OnPlanClickListe
 
     @Override
     public void onSuccessRemoveFromPlan(MealModel mealModel) {
-        Toast.makeText(getContext(), "Remove "  + mealModel.getStrMeal() + " from Plan", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Remove " + mealModel.getStrMeal() + " from Plan", Toast.LENGTH_SHORT).show();
     }
 
     @Override

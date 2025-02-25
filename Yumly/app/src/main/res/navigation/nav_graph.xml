@@ -76,6 +76,9 @@
         <argument
             android:name="meals"
             app:argType="com.example.yumly.core.models.MealModel[]" />
+        <action
+            android:id="@+id/action_detailsFragment_to_authMenu"
+            app:destination="@id/authMenu" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -85,6 +88,9 @@
         <action
             android:id="@+id/action_searchFragment_to_searchResultFragment"
             app:destination="@id/searchResultFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_authMenu"
+            app:destination="@id/authMenu" />
     </fragment>
     <fragment
         android:id="@+id/searchResultFragment"
@@ -106,6 +112,9 @@
         <action
             android:id="@+id/action_favoriteFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_authMenu"
+            app:destination="@id/authMenu" />
     </fragment>
     <fragment
         android:id="@+id/planFragment"
@@ -115,6 +124,9 @@
         <action
             android:id="@+id/action_planFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_planFragment_to_authMenu"
+            app:destination="@id/authMenu" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"

@@ -1,6 +1,8 @@
 package com.example.yumly.features.details.view;
 
+import android.app.Dialog;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -13,7 +15,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.example.yumly.R;
 import com.example.yumly.core.local.MealsLocalDataSource;
@@ -32,6 +36,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -50,14 +55,11 @@ public class DetailsFragment extends Fragment implements DetailsView {
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
 
-    public DetailsFragment() {
-    }
+    Dialog dialog;
+    Button cancelBtn;
+    Button logoutBtn;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
+    public DetailsFragment() {
     }
 
     @Override
@@ -69,6 +71,8 @@ public class DetailsFragment extends Fragment implements DetailsView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentDetailsBinding.inflate(inflater, container, false);
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
         return binding.getRoot();
     }
 
@@ -80,6 +84,7 @@ public class DetailsFragment extends Fragment implements DetailsView {
         initRecycleView();
         initPresenter();
         initYoutube();
+        initDialog();
     }
 
     void initPresenter() {
@@ -108,18 +113,25 @@ public class DetailsFragment extends Fragment implements DetailsView {
         binding.descMealDetailsId.setText(mealModel.getStrInstructions());
         Glide.with(getContext()).load(mealModel.getStrMealThumb()).into(binding.imageViewDetailsId);
         binding.favBtnId.setOnClickListener(v -> {
-            if (isFav) {
-                isFav = false;
-                binding.favIconId.setImageResource(R.drawable.favorite);
-                presenter.removeFromFav(mealModel, currentUser.getUid());
-            } else {
-                isFav = true;
-                binding.favIconId.setImageResource(R.drawable.solid_favorite);
-                presenter.addToFav(mealModel, currentUser.getUid());
+            if (currentUser == null)
+                dialog.show();
+            else {
+                if (isFav) {
+                    isFav = false;
+                    binding.favIconId.setImageResource(R.drawable.favorite);
+                    presenter.removeFromFav(mealModel, currentUser.getUid());
+                } else {
+                    isFav = true;
+                    binding.favIconId.setImageResource(R.drawable.solid_favorite);
+                    presenter.addToFav(mealModel, currentUser.getUid());
+                }
             }
         });
         binding.btnAddToCalendarId.setOnClickListener(v -> {
-            Calender.showDate(requireContext(), selectedDate -> {
+            if (currentUser == null)
+                dialog.show();
+            else
+                Calender.showDate(requireContext(), selectedDate -> {
                 presenter.insertToPlane(new PlanModel(selectedDate, currentUser.getUid(), mealModel));
             });
         });
@@ -139,6 +151,21 @@ public class DetailsFragment extends Fragment implements DetailsView {
         }
     }
 
+    private void initDialog() {
+        dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.custom_login_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_dialog_bg));
+        dialog.setCancelable(false);
+        cancelBtn = dialog.findViewById(R.id.dialog_cancel);
+        logoutBtn = dialog.findViewById(R.id.dialog_confirm);
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+        logoutBtn.setOnClickListener(v -> {
+            Navigation.findNavController(getView()).navigate(R.id.action_detailsFragment_to_authMenu);
+            Navigation.findNavController(getView()).popBackStack(R.id.detailsFragment, true);
+            dialog.dismiss();
+        });
+    }
 
     void initYoutube() {
         YouTubePlayerView youTubePlayerView = binding.youtubePlayerView;
@@ -215,7 +242,7 @@ public class DetailsFragment extends Fragment implements DetailsView {
 
     @Override
     public void onSuccessAddToPlan(PlanModel planModel) {
-        Toast.makeText(requireContext(), "Added " +planModel.getMeal().getStrMeal() + " successfully", Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireContext(), "Added " + planModel.getMeal().getStrMeal() + " successfully", Toast.LENGTH_SHORT).show();
     }
 
     @Override

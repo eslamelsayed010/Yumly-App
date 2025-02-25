@@ -1,6 +1,8 @@
 package com.example.yumly.features.favorite.view;
 
+import android.app.Dialog;
 import android.os.Bundle;
+
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,7 +15,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.yumly.R;
 import com.example.yumly.core.local.MealsLocalDataSource;
 import com.example.yumly.core.models.MealModel;
 import com.example.yumly.core.remote.MealRemoteDataSource;
@@ -31,10 +36,15 @@ public class FavoriteFragment extends Fragment implements FavView, OnFavClickLis
     FavPresenter presenter;
     RecyclerView recyclerView;
     MyAdapter myAdapter;
-    private FirebaseAuth mAuth;
+    FirebaseAuth mAuth;
     FirebaseUser currentUser;
 
-    public FavoriteFragment() {}
+    Dialog dialog;
+    Button cancelBtn;
+    Button logoutBtn;
+
+    public FavoriteFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,9 +63,30 @@ public class FavoriteFragment extends Fragment implements FavView, OnFavClickLis
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initPresenter();
-        initRecycleView();
+        initDialog();
         closeApp();
+        if (currentUser == null)
+            dialog.show();
+        else {
+            initPresenter();
+            initRecycleView();
+        }
+    }
+
+    private void initDialog() {
+        dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.custom_login_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.custom_dialog_bg));
+        dialog.setCancelable(false);
+        cancelBtn = dialog.findViewById(R.id.dialog_cancel);
+        logoutBtn = dialog.findViewById(R.id.dialog_confirm);
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+        logoutBtn.setOnClickListener(v -> {
+            Navigation.findNavController(getView()).navigate(R.id.action_favoriteFragment_to_authMenu);
+            Navigation.findNavController(getView()).popBackStack(R.id.favoriteFragment, true);
+            dialog.dismiss();
+        });
     }
 
     public void closeApp() {
@@ -67,7 +98,7 @@ public class FavoriteFragment extends Fragment implements FavView, OnFavClickLis
         });
     }
 
-    void initPresenter(){
+    void initPresenter() {
         presenter = new FavPresenter(this,
                 MealsRepository.getInstance(MealsLocalDataSource.getInstance(requireContext()),
                         MealRemoteDataSource.getInstance()));
@@ -101,7 +132,7 @@ public class FavoriteFragment extends Fragment implements FavView, OnFavClickLis
 
     @Override
     public void onSuccessRemoveFromFav(MealModel mealModel) {
-        Toast.makeText(getContext(), "Remove "  + mealModel.getStrMeal() + " from Favorite", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Remove " + mealModel.getStrMeal() + " from Favorite", Toast.LENGTH_SHORT).show();
     }
 
     @Override

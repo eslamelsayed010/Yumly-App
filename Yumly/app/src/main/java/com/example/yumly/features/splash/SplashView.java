@@ -34,6 +34,8 @@ public class SplashView extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        new Handler().postDelayed(() -> Navigation.findNavController(view).navigate(R.id.action_splashView_to_authMenu),5000);
+        new Handler().postDelayed(() -> {
+            Navigation.findNavController(view).navigate(R.id.action_splashView_to_authMenu);
+        },5000);
     }
 }
