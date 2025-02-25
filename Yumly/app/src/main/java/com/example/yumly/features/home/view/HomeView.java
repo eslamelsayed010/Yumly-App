@@ -1,5 +1,8 @@
 package com.example.yumly.features.home.view;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -20,6 +23,8 @@ import com.example.yumly.core.repo.MealsRepository;
 import com.example.yumly.core.models.MealModel;
 import com.example.yumly.databinding.FragmentHomeViewBinding;
 import com.example.yumly.features.home.presenter.HomePresenter;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 
 public class HomeView extends Fragment implements MyHomeView, OnItemClickListenerHome {
@@ -29,6 +34,7 @@ public class HomeView extends Fragment implements MyHomeView, OnItemClickListene
     ArrayList<MealModel> randomMeals = new ArrayList<>();
     HomePresenter presenter;
     GridAdapter gridAdapter;
+    Dialog dialog;
 
     public HomeView() {
     }
@@ -50,7 +56,19 @@ public class HomeView extends Fragment implements MyHomeView, OnItemClickListene
         initGridView();
         initPresenter();
         handleOnClickListener();
+        initDialog();
         closeApp();
+        if (meals.isEmpty())
+            dialog.show();
+    }
+
+    void initDialog() {
+        dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.loading);
+        dialog.setCancelable(false);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
     }
 
     void handleOnClickListener() {
@@ -85,6 +103,7 @@ public class HomeView extends Fragment implements MyHomeView, OnItemClickListene
     public void getData(ArrayList<MealModel> meals) {
         meals.remove(0);
         this.meals = meals;
+        dialog.dismiss();
         gridAdapter = new GridAdapter(requireContext(), meals, this);
         binding.recyclerViewId.setAdapter(gridAdapter);
     }
@@ -104,6 +123,7 @@ public class HomeView extends Fragment implements MyHomeView, OnItemClickListene
 
     @Override
     public void onError(String msg) {
+        dialog.dismiss();
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
         Log.i("TAG", "onError: " + msg);
     }

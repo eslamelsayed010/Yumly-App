@@ -1,6 +1,8 @@
 package com.example.yumly.features.favorite.view;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -40,11 +42,11 @@ public class FavoriteFragment extends Fragment implements FavView, OnFavClickLis
     FirebaseUser currentUser;
 
     Dialog dialog;
+    Dialog dialog2;
     Button cancelBtn;
     Button logoutBtn;
 
-    public FavoriteFragment() {
-    }
+    public FavoriteFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,8 @@ public class FavoriteFragment extends Fragment implements FavView, OnFavClickLis
         super.onViewCreated(view, savedInstanceState);
         initDialog();
         closeApp();
+        initLoadingDialog();
+        dialog2.show();
         if (currentUser == null)
             dialog.show();
         else {
@@ -87,6 +91,15 @@ public class FavoriteFragment extends Fragment implements FavView, OnFavClickLis
             Navigation.findNavController(getView()).popBackStack(R.id.favoriteFragment, true);
             dialog.dismiss();
         });
+    }
+
+    void initLoadingDialog() {
+        dialog2 = new Dialog(getContext());
+        dialog2.setContentView(R.layout.loading);
+        dialog2.setCancelable(false);
+        if (dialog2.getWindow() != null) {
+            dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
     }
 
     public void closeApp() {
@@ -121,12 +134,14 @@ public class FavoriteFragment extends Fragment implements FavView, OnFavClickLis
 
     @Override
     public void getMeals(ArrayList<MealModel> models) {
+        dialog2.dismiss();
         myAdapter = new MyAdapter(getContext(), models, this);
         recyclerView.setAdapter(myAdapter);
     }
 
     @Override
     public void getError(String error) {
+        dialog.dismiss();
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 

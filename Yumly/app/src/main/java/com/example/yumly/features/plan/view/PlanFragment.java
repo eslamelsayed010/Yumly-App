@@ -1,6 +1,8 @@
 package com.example.yumly.features.plan.view;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -41,6 +43,7 @@ public class PlanFragment extends Fragment implements PlanView, OnPlanClickListe
     FirebaseUser currentUser;
 
     Dialog dialog;
+    Dialog dialog2;
     Button cancelBtn;
     Button logoutBtn;
 
@@ -68,10 +71,21 @@ public class PlanFragment extends Fragment implements PlanView, OnPlanClickListe
         super.onViewCreated(view, savedInstanceState);
         closeApp();
         initDialog();
+        initLoadingDialog();
+        dialog2.show();
         if (currentUser == null) dialog.show();
         else {
             initPresenter();
             initRecycleView();
+        }
+    }
+
+    void initLoadingDialog() {
+        dialog2 = new Dialog(getContext());
+        dialog2.setContentView(R.layout.loading);
+        dialog2.setCancelable(false);
+        if (dialog2.getWindow() != null) {
+            dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
     }
 
@@ -123,12 +137,14 @@ public class PlanFragment extends Fragment implements PlanView, OnPlanClickListe
 
     @Override
     public void getMeals(ArrayList<PlanModel> models) {
+        dialog2.dismiss();
         myAdapter = new MyAdapter(getContext(), models, this);
         recyclerView.setAdapter(myAdapter);
     }
 
     @Override
     public void getError(String error) {
+        dialog2.dismiss();
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 

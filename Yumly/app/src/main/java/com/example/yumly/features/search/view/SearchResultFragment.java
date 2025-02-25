@@ -1,5 +1,8 @@
 package com.example.yumly.features.search.view;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +32,8 @@ public class SearchResultFragment extends Fragment implements OnSearchResultClic
     ArrayList<MealModel> meals;
     HomePresenter presenter;
 
+    Dialog dialog2;
+
     public SearchResultFragment() {}
 
     @Override
@@ -47,9 +52,20 @@ public class SearchResultFragment extends Fragment implements OnSearchResultClic
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.arrowBackId.setOnClickListener(v -> arrowBackOnClick());
+        initLoadingDialog();
+        dialog2.show();
         initMeal();
         initRecycleView();
         initPresenter();
+    }
+
+    void initLoadingDialog() {
+        dialog2 = new Dialog(getContext());
+        dialog2.setContentView(R.layout.loading);
+        dialog2.setCancelable(false);
+        if (dialog2.getWindow() != null) {
+            dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
     }
 
     private void arrowBackOnClick() {
@@ -62,6 +78,7 @@ public class SearchResultFragment extends Fragment implements OnSearchResultClic
                 .asList(SearchResultFragmentArgs
                         .fromBundle(getArguments())
                         .getMeals()));
+        dialog2.dismiss();
     }
 
     private void initRecycleView() {
@@ -105,6 +122,7 @@ public class SearchResultFragment extends Fragment implements OnSearchResultClic
 
     @Override
     public void onError(String msg) {
+        dialog2.dismiss();
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 }
