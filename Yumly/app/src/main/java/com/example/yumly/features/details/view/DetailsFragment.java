@@ -162,7 +162,6 @@ public class DetailsFragment extends Fragment implements DetailsView {
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
         logoutBtn.setOnClickListener(v -> {
             Navigation.findNavController(getView()).navigate(R.id.action_detailsFragment_to_authMenu);
-            Navigation.findNavController(getView()).popBackStack(R.id.detailsFragment, true);
             dialog.dismiss();
         });
     }

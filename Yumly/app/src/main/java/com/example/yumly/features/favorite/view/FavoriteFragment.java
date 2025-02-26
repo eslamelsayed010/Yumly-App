@@ -85,11 +85,15 @@ public class FavoriteFragment extends Fragment implements FavView, OnFavClickLis
         dialog.setCancelable(false);
         cancelBtn = dialog.findViewById(R.id.dialog_cancel);
         logoutBtn = dialog.findViewById(R.id.dialog_confirm);
-        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+        cancelBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            dialog2.dismiss();
+        });
         logoutBtn.setOnClickListener(v -> {
             Navigation.findNavController(getView()).navigate(R.id.action_favoriteFragment_to_authMenu);
             Navigation.findNavController(getView()).popBackStack(R.id.favoriteFragment, true);
             dialog.dismiss();
+            dialog2.dismiss();
         });
     }
 
