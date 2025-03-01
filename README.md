@@ -32,8 +32,8 @@ Yumly is an Android app that helps users plan their meals, discover new recipes,
 ## 🛠️ Setup & Installation
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/MasameEh/FoodPlanner.git
-   cd FoodPlanner
+   git clone https://github.com/eslamelsayed010/Yumly-App.git
+   cd Yumly-App
    ```
 2. **Open in Android Studio** and sync Gradle.
 3. **Add API Keys**:
